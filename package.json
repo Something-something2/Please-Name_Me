@@ -1,0 +1,24 @@
+{
+  "name": "please-name-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Uncooperative/please-name-me.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-Uncooperative/please-name-me/issues"
+  },
+  "homepage": "https://github.com/The-Uncooperative/please-name-me#readme"
+}
