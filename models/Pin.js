@@ -1,10 +1,10 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Post extends Model { }
+class Pin extends Model { }
 
 
-Post.init(
+Pin.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -18,15 +18,29 @@ Post.init(
                 model: 'user',
                 key: 'id'
             }
+        },
+        lat: {
+            type: DataTypes.DECIMAL,
+            validate: {
+                isDecimal: true
+            },
+            allowNull: false
+        },
+        long: {
+            type: DataTypes.DECIMAL,
+            validate: {
+                isDecimal: true
+            },
+            allowNull: false
         }
     },
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'post'
+        modelName: 'pin'
     }
 );
 
 
-module.exports = Post;
+module.exports = Pin;

@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection')
-const { Post, User, } = require('../models')
+const { Pin, User, } = require('../models')
 
 router.get('/', (req, res) => {
     console.log(req.session);
-    Post.findAll({
+    Pin.findAll({
         attributes: [
             'id'
         ],
@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
             }
         ]
     })
-        .then(dbPostData => {
-            const posts = dbPostData.map(post => post.get({ plain: true }));
-            // pass a single post object into the homepage template
+        .then(dbPinData => {
+            const pins = dbPinData.map(pin => pin.get({ plain: true }));
+            // pass a single pin object into the homepage template
             res.render('homepage', {
-                posts,
+                pins,
                 loggedIn: req.session.loggedIn
             });
         })
@@ -38,8 +38,8 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
+router.get('/pin/:id', (req, res) => {
+    Pin.findOne({
         where: {
             id: req.params.id
         },
@@ -53,18 +53,18 @@ router.get('/post/:id', (req, res) => {
             }
         ]
     })
-        .then(dbPostData => {
-            if (!dbPostData) {
-                res.status(404).json({ message: 'No post found with this id' });
+        .then(dbPinData => {
+            if (!dbPinData) {
+                res.status(404).json({ message: 'No pin found with this id' });
                 return;
             }
 
             // serialize the data
-            const post = dbPostData.get({ plain: true });
+            const pin = dbPinData.get({ plain: true });
 
             // pass data to template
-            res.render('single-post', {
-                post,
+            res.render('single-pin', {
+                pin,
                 loggedIn: req.session.loggedIn
             });
         })
