@@ -35,7 +35,9 @@ router.get('/login', (req, res) => {
         return;
     }
 
-    res.render('login');
+    res.render('login', {
+        noNav: true
+    });
 });
 
 router.get('/pin/:id', (req, res) => {
