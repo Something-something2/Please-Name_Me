@@ -1,12 +1,22 @@
 const User = require("./User")
-const Post = require("./Post")
+const Pin = require("./Pin")
+const Comment = require('./Comment')
+//const Picture = require('./Picture')
 
-User.hasMany(Post, {
+User.hasMany(Pin, {
     foreignKey: "user_id"
 });
 
-Post.belongsTo(User, {
+Pin.belongsTo(User, {
     foreignKey: "user_id",
 });
 
-module.exports = { User, Post, }
+Pin.hasOne(Comment, {
+    foreignKey: "pin_id"
+});
+
+Comment.belongsTo(Pin, {
+    foreignKey: 'pin_id'
+})
+
+module.exports = { User, Pin, Comment, }
