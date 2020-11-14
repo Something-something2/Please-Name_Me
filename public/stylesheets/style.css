@@ -5,3 +5,8 @@ footer {
     padding: 1%;
     font-size: 110%;
   }
+
+  #pin-map {
+    height: 500px;
+    width: auto;
+  }
