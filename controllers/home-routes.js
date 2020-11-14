@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         .then(dbPinData => {
             const pins = dbPinData.map(pin => pin.get({ plain: true }));
             // pass a single pin object into the homepage template
-            res.render('homepage', {
+            res.render('login', {
                 pins,
                 loggedIn: req.session.loggedIn
             });
@@ -29,13 +29,13 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/login', (req, res) => {
+router.get('/home', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }
 
-    res.render('login', {
+    res.render('home', {
         noNav: true
     });
 });
