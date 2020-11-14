@@ -32,6 +32,27 @@ router.get('/', withAuth, (req, res) => {
         });
 });
 
+// Signup
+router.get('/signup', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('signup');
+  });
+  
+  // Login
+  router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('login');
+  });
+  
+
 router.get('/home', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
