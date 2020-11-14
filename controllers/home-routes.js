@@ -2,7 +2,9 @@ const router = require('express').Router();
 const sequelize = require('../config/connection')
 const { Pin, User, } = require('../models')
 
-router.get('/', (req, res) => {
+const withAuth = require('../utils/auth');
+
+router.get('/', withAuth, (req, res) => {
     console.log(req.session);
     Pin.findAll({
         attributes: [
