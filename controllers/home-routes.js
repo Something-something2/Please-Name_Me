@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
             const pins = dbPinData.map(pin => pin.get({ plain: true }));
             // pass a single pin object into the homepage template
             res.render('login', {
+                noNav: true,
                 pins,
                 loggedIn: req.session.loggedIn
             });
@@ -36,7 +37,7 @@ router.get('/home', (req, res) => {
     }
 
     res.render('home', {
-        noNav: true
+        
     });
 });
 
