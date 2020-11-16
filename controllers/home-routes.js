@@ -49,7 +49,9 @@ router.get('/signup', (req, res) => {
       return;
     }
   
-    res.render('login');
+    res.render('login', {
+        noNav: true
+    });
   });
   
 
