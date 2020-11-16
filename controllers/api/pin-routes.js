@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const {
   Pin,
-  User
+  User,
+  Image
 } = require('../../models');
 const sequelize = require('../../config/connection');
-const uploadFile = require('../../utils/upload');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
@@ -132,29 +132,25 @@ router.get('/upload/:id', (req, res) => {
 
 router.post('/upload/:id', upload.single('image'), (req, res) => {
   try {
-    console.log(req.file);
+      console.log(req.file);
+      console.log(__basedir + req.file.path)
 
-    if (req.file == undefined) {
-      return res.send(`You must select a file.`);
-    }
+      if (req.file == undefined) {
+          return res.send(`You must select a file.`);
+      }
 
-    Image.create({
-      type: req.file.mimetype,
-      name: req.file.originalname,
-      data: fs.readFileSync(
-        __basedir + "uploads/" + req.file.filename
-      ),
-    }).then((image) => {
-      fs.writeFileSync(
-        __basedir + "tmp/" + image.name,
-        image.data
-      );
-
+      Image.create({
+          type: req.file.mimetype,
+          name: req.file.originalname,
+          data: fs.readFileSync(
+              __basedir + "\\" + req.file.path
+          ),
+          pin_id: req.params.id
+      })
       return res.send(`File has been uploaded.`);
-    });
   } catch (error) {
-    console.log(error);
-    return res.send(`Error when trying upload images: ${error}`);
+      console.log(error);
+      return res.send(`Error when trying upload images: ${error}`);
   }
 })
 
