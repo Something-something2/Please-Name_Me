@@ -102,4 +102,14 @@ router.get('/pin/:id', (req, res) => {
         });
 });
 
+router.get('/upload', (req, res) => {
+    res.render('upload', {
+        
+    })
+})
+
+router.post('/upload', (req, res) => {
+    console.log(req.files)
+})
+
 module.exports = router; 
