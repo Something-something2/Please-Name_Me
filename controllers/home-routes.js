@@ -2,7 +2,9 @@ const router = require('express').Router();
 const sequelize = require('../config/connection')
 const { Pin, User, } = require('../models')
 
-router.get('/', (req, res) => {
+const withAuth = require('../utils/auth');
+
+router.get('/', withAuth, (req, res) => {
     console.log(req.session);
     Pin.findAll({
         attributes: [
@@ -18,7 +20,8 @@ router.get('/', (req, res) => {
         .then(dbPinData => {
             const pins = dbPinData.map(pin => pin.get({ plain: true }));
             // pass a single pin object into the homepage template
-            res.render('homepage', {
+            res.render('login', {
+                noNav: true,
                 pins,
                 loggedIn: req.session.loggedIn
             });
@@ -29,14 +32,37 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/login', (req, res) => {
+// Signup
+router.get('/signup', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('signup');
+  });
+  
+  // Login
+  router.get('/login', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('login', {
+        noNav: true
+    });
+  });
+  
+
+router.get('/home', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }
 
-    res.render('login', {
-        noNav: true
+    res.render('home', {
+        
     });
 });
 

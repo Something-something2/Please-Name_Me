@@ -16,7 +16,6 @@ async function signupFormHandler(event) {
 
     // console.log("button clicked!");
 
-    const username = document.querySelector('#inputUsername').value.trim();
     
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
@@ -36,7 +35,7 @@ async function signupFormHandler(event) {
         return;
     };
 
-    if (!username || !email || !password) {
+    if (!email || !password) {
         alert("Please make sure all of the fields are filled in!");
         return;
     };
@@ -44,11 +43,10 @@ async function signupFormHandler(event) {
 
 
 
-    if (username && email && password) {
+    if (email && password) {
         const response = await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
-                username,
                 email,
                 password,
                 

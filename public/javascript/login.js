@@ -16,6 +16,9 @@ async function loginFormHandler(event) {
             headers: { 'Content-Type': 'application/json' }
         });
 
+        let userLoginResponse = await response.json();
+        console.log(userLoginResponse);
+
         if (response.ok) {
             document.location.replace('/');
         } else {
