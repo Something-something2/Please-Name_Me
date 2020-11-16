@@ -1,24 +1,32 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection')
-const { Pin, User, } = require('../models')
-
+const {
+    Pin,
+    User,
+    Image
+} = require('../models')
+const fs = require('fs')
 const withAuth = require('../utils/auth');
+var multer = require('multer')
+var upload = multer({
+    dest: 'uploads/'
+})
 
 router.get('/', withAuth, (req, res) => {
     console.log(req.session);
     Pin.findAll({
-        attributes: [
-            'id'
-        ],
-        include: [
-            {
+            attributes: [
+                'id'
+            ],
+            include: [{
                 model: User,
                 attributes: ['username']
-            }
-        ]
-    })
+            }]
+        })
         .then(dbPinData => {
-            const pins = dbPinData.map(pin => pin.get({ plain: true }));
+            const pins = dbPinData.map(pin => pin.get({
+                plain: true
+            }));
             // pass a single pin object into the homepage template
             res.render('login', {
                 noNav: true,
@@ -35,25 +43,24 @@ router.get('/', withAuth, (req, res) => {
 // Signup
 router.get('/signup', (req, res) => {
     if (req.session.loggedIn) {
-      res.redirect('/');
-      return;
+        res.redirect('/');
+        return;
     }
-  
+
     res.render('signup');
-  });
-  
-  // Login
-  router.get('/login', (req, res) => {
+});
+
+// Login
+router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
-      res.redirect('/');
-      return;
+        res.redirect('/');
+        return;
     }
-  
+
     res.render('login', {
         noNav: true
     });
-  });
-  
+});
 
 router.get('/home', (req, res) => {
     if (req.session.loggedIn) {
@@ -62,33 +69,35 @@ router.get('/home', (req, res) => {
     }
 
     res.render('home', {
-        
+
     });
 });
 
 router.get('/pin/:id', (req, res) => {
     Pin.findOne({
-        where: {
-            id: req.params.id
-        },
-        attributes: [
-            'id'           
-        ],
-        include: [
-            {
+            where: {
+                id: req.params.id
+            },
+            attributes: [
+                'id'
+            ],
+            include: [{
                 model: User,
                 attributes: ['username']
-            }
-        ]
-    })
+            }]
+        })
         .then(dbPinData => {
             if (!dbPinData) {
-                res.status(404).json({ message: 'No pin found with this id' });
+                res.status(404).json({
+                    message: 'No pin found with this id'
+                });
                 return;
             }
 
             // serialize the data
-            const pin = dbPinData.get({ plain: true });
+            const pin = dbPinData.get({
+                plain: true
+            });
 
             // pass data to template
             res.render('single-pin', {
@@ -102,4 +111,4 @@ router.get('/pin/:id', (req, res) => {
         });
 });
 
-module.exports = router; 
+module.exports = router;

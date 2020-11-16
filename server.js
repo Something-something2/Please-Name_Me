@@ -17,7 +17,7 @@ const sess = {
     db: sequelize
   })
 }
-
+global.__basedir = __dirname
 const app = express();
 const PORT = process.env.PORT || 3001;
 

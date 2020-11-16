@@ -1,9 +1,13 @@
 const router = require('express').Router();
 const {
   Pin,
-  User
+  User,
+  Image
 } = require('../../models');
 const sequelize = require('../../config/connection');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+const fs = require('fs')
 
 router.get('/:id', (req, res) => {
   Pin.findOne({
@@ -119,5 +123,35 @@ router.delete('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.get('/upload/:id', (req, res) => {
+  res.render('upload', {
+      pin_id: req.params.id
+  })
+})
+
+router.post('/upload/:id', upload.single('image'), (req, res) => {
+  try {
+      console.log(req.file);
+      console.log(__basedir + req.file.path)
+
+      if (req.file == undefined) {
+          return res.send(`You must select a file.`);
+      }
+
+      Image.create({
+          type: req.file.mimetype,
+          name: req.file.originalname,
+          data: fs.readFileSync(
+              __basedir + "\\" + req.file.path
+          ),
+          pin_id: req.params.id
+      })
+      return res.send(`File has been uploaded.`);
+  } catch (error) {
+      console.log(error);
+      return res.send(`Error when trying upload images: ${error}`);
+  }
+})
 
 module.exports = router;
