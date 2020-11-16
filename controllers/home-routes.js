@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection')
 const { Pin, User, } = require('../models')
+const fs = require('fs')
 
 const withAuth = require('../utils/auth');
+const uploadFile = require('../utils/upload');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 router.get('/', withAuth, (req, res) => {
     console.log(req.session);
@@ -42,8 +46,8 @@ router.get('/signup', (req, res) => {
     res.render('signup');
   });
   
-  // Login
-  router.get('/login', (req, res) => {
+// Login
+router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
       res.redirect('/');
       return;
@@ -53,7 +57,6 @@ router.get('/signup', (req, res) => {
         noNav: true
     });
   });
-  
 
 router.get('/home', (req, res) => {
     if (req.session.loggedIn) {
@@ -102,14 +105,6 @@ router.get('/pin/:id', (req, res) => {
         });
 });
 
-router.get('/upload', (req, res) => {
-    res.render('upload', {
-        
-    })
-})
 
-router.post('/upload', (req, res) => {
-    console.log(req.files)
-})
 
 module.exports = router; 
