@@ -1,7 +1,7 @@
 const User = require("./User")
 const Pin = require("./Pin")
 const Comment = require('./Comment')
-//const Picture = require('./Picture')
+const Image = require('./Image')
 
 User.hasMany(Pin, {
     foreignKey: "user_id"
@@ -17,6 +17,14 @@ Pin.hasOne(Comment, {
 
 Comment.belongsTo(Pin, {
     foreignKey: 'pin_id'
-})
+});
 
-module.exports = { User, Pin, Comment, }
+Pin.hasMany(Comment, {
+    foreignKey: "pin_id"
+});
+
+Image.belongsTo(Pin, {
+    foreignKey: 'pin_id'
+});
+
+module.exports = { User, Pin, Comment, Image }
