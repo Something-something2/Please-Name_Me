@@ -32,7 +32,7 @@ Pin.init(
                 isDecimal: true
             },
             allowNull: false
-        }
+        },
     },
     {
         sequelize,

@@ -15,14 +15,14 @@ var upload = multer({
 router.get('/', withAuth, (req, res) => {
   console.log(req.session);
   Pin.findAll({
-    order: [['created_at', 'DESC']],
+    order: ['DESC'],
     attributes: [
       'id',
     ],
     include: [
       {
         model: User,
-        attributes: ['admin']
+        attributes: ['first_name', 'admin']
       }
     ]
   })

@@ -44,12 +44,15 @@ router.get('/:id', (req, res) => {
 //POST /api/users
 router.post('/', (req, res) => {
     User.create({
+        first_name: req.body.first_name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        admin: req.body.admin
     })
         .then(dbUserData => {
             req.session.save(() => {
                 req.session.user_id = dbUserData.id;
+                req.session.email = dbUserData.email;
                 req.session.loggedIn = true;
 
                 res.json(dbUserData);
@@ -62,6 +65,7 @@ router.post('/', (req, res) => {
         });
 });
 
+//login
 router.post('/login', (req, res) => {
     User.findOne({
         where: {
@@ -83,13 +87,18 @@ router.post('/login', (req, res) => {
         req.session.save(() => {
             // declare session variables
             req.session.user_id = dbUserData.id;
+            req.session.email = dbUserData.email;
             req.session.loggedIn = true;
+            if (dbUserData.admin) {
+                req.session.admin = true;
 
-            res.json({ user: dbUserData, message: 'You are now logged in!' });
+                res.json({ user: dbUserData, message: 'You are now logged in!' });
+            }
         });
     });
 });
 
+//Logout
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {

@@ -1,11 +1,11 @@
 const signupSeed = {
-    username: "doggface420",
+    first_name: "doggface",
     email: "doggface420@gmail.com",
     password: "password",
 };
 
 const signupSeedJSON = {
-    "username": "doggface420",
+    "first_name": "doggface",
     "email": "doggface420@gmail.com",
     "password": "password",
 };
@@ -16,18 +16,12 @@ async function signupFormHandler(event) {
 
     // console.log("button clicked!");
 
-    
+    const first_name = document.querySelector('#inputFirstName').value.trim();
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
    
 
-    const privacyPolicy = document.querySelector('#gridCheck');
-    // console.log(privacyPolicy.checked);
-
-    if (!privacyPolicy.checked) {
-        alert("Please select that you've read and agree to our privacy policy!");
-        return;
-    };
+    
 
     if (password.length < 4) {
         // console.log(password.length);
@@ -35,7 +29,7 @@ async function signupFormHandler(event) {
         return;
     };
 
-    if (!email || !password) {
+    if (!first_name || !email || !password) {
         alert("Please make sure all of the fields are filled in!");
         return;
     };
@@ -43,10 +37,11 @@ async function signupFormHandler(event) {
 
 
 
-    if (email && password) {
+    if (first_name && email && password) {
         const response = await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
+                first_name,
                 email,
                 password,
                 
