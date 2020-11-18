@@ -1,31 +1,20 @@
-const signupSeed = {
-    username: "doggface420",
-    email: "doggface420@gmail.com",
-    password: "password",
-};
-
-const signupSeedJSON = {
-    "username": "doggface420",
-    "email": "doggface420@gmail.com",
-    "password": "password",
-};
-
-async function signupFormHandler(event) {
+async function editFormHandler(event) {
 
     event.preventDefault();
 
     // console.log("button clicked!");
 
+    const id = document.querySelector('#user_id').innerHTML.trim();
+    // console.log(id);
+
+
     
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
-   
+    
 
-    const privacyPolicy = document.querySelector('#gridCheck');
-    // console.log(privacyPolicy.checked);
-
-    if (!privacyPolicy.checked) {
-        alert("Please select that you've read and agree to our privacy policy!");
+    if (!password) {
+        alert("Please enter a new password!");
         return;
     };
 
@@ -40,16 +29,13 @@ async function signupFormHandler(event) {
         return;
     };
 
-
-
-
     if (email && password) {
-        const response = await fetch('/api/users', {
-            method: 'post',
+        // TODO: need to find a way to get user id for below...
+        const response = await fetch(`/api/users/${id}`, {
+            method: 'PUT',
             body: JSON.stringify({
                 email,
                 password,
-                
             }),
             headers: { 'Content-Type': 'application/json' }
         });
@@ -58,15 +44,11 @@ async function signupFormHandler(event) {
         // check the response status
         if (response.ok) {
             // console.log('success');
-            document.location.replace('/');
+            document.location.replace('/profile');
         } else {
             alert(response.statusText);
         }
     }
 };
 
-
-
-
-
-document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
+document.querySelector('#submit-edit-profile').addEventListener('click', editFormHandler);

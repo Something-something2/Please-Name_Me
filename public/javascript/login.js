@@ -3,6 +3,7 @@ async function loginFormHandler(event) {
 
     console.log("button clicked!");
 
+
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
 
@@ -20,7 +21,7 @@ async function loginFormHandler(event) {
         console.log(userLoginResponse);
 
         if (response.ok) {
-            document.location.replace('/');
+            document.location.replace('/home');
         } else {
             // alert(response.statusText);
             alert("Incorrect email or password.  Please try again.");
@@ -31,4 +32,4 @@ async function loginFormHandler(event) {
 
 
 
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+document.querySelector('#modalLoginForm').addEventListener('submit', loginFormHandler);
