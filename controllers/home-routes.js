@@ -16,7 +16,7 @@ var upload = multer({
 router.get('/home', withAuth, (req, res) => {
     console.log(req.session);
     Pin.findAll({
-        order: [['DESC']],
+        order: ['DESC'],
         where: {
             // use the ID from the session
             user_id: req.session.user_id

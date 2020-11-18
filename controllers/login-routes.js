@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     return;
   }
 
-  res.render(document.querySelector('#modalRegisterForm'));
+  res.render('login');
 });
 
 
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
     res.redirect('/home');
     return;
   }
-  res.render(document.querySelector('#modalLoginForm'));
+  res.render('login');
 });
 
 // Profile

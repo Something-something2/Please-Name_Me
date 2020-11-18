@@ -3,7 +3,7 @@ const sequelize = require('../config/connection')
 const {
   Pin,
   User,
-  //Image
+  Image
 } = require('../models')
 const fs = require('fs')
 const withAuth = require('../utils/auth');
@@ -15,7 +15,7 @@ var upload = multer({
 router.get('/admin', withAuth, (req, res) => {
   console.log(req.session);
   Pin.findAll({
-    order: [['DESC']],
+    order: ['DESC'],
     where: {
       // use the ID from the session
       user_id: req.session.user_id
@@ -29,7 +29,7 @@ router.get('/admin', withAuth, (req, res) => {
     include: [
       {
         model: User,
-        attributes: ['first_name']
+        attributes: ['first_name', 'admin']
 
       },
       {
