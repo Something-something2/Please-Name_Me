@@ -4,7 +4,7 @@ const {
     Pin,
     User,
     Comment,
-    //Image
+    Image
 } = require('../models')
 const fs = require('fs')
 const withAuth = require('../utils/auth');
@@ -13,7 +13,7 @@ var upload = multer({
     dest: 'uploads/'
 })
 
-router.get('/home', withAuth, (req, res) => {
+router.get('/', withAuth, (req, res) => {
     console.log(req.session);
     Pin.findAll({
         order: ['DESC'],

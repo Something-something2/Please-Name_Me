@@ -10,7 +10,7 @@ const signupSeedJSON = {
     "password": "password",
 };
 
-async function signupFormHandler(event) {
+$('#signupBtn').on('toggle', async function signupFormHandler(event) {
 
     event.preventDefault();
 
@@ -59,15 +59,15 @@ async function signupFormHandler(event) {
         // check the response status
         if (response.ok) {
             // console.log('success');
-            document.location.replace('/');
+            document.location.replace('/home');
         } else {
             alert(response.statusText);
         }
     }
-};
+});
 
 
 
 
 
-document.getElementById('sign-up').addEventListener('click', signupFormHandler);
+

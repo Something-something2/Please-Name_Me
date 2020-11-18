@@ -1,4 +1,4 @@
-async function loginFormHandler(event) {
+$('#loginBtn').on('toggle', async function loginFormHandler(event) {
     event.preventDefault();
 
     console.log("button clicked!");
@@ -21,15 +21,11 @@ async function loginFormHandler(event) {
         console.log(userLoginResponse);
 
         if (response.ok) {
-            document.location.replace('/');
+            document.location.replace('/home');
         } else {
             // alert(response.statusText);
             alert("Incorrect email or password.  Please try again.");
         }
     }
-}
+})
 
-
-
-
-document.querySelector('#modalLoginForm').addEventListener('submit', loginFormHandler);

@@ -12,7 +12,7 @@ var upload = multer({
   dest: 'uploads/'
 })
 
-router.get('/admin', withAuth, (req, res) => {
+router.get('/', withAuth, (req, res) => {
   console.log(req.session);
   Pin.findAll({
     order: ['DESC'],

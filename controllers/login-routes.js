@@ -4,30 +4,30 @@ const { User, } = require('../models')
 
 
 
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
   console.log(req.session.admin);
   if (req.session.admin) {
     res.redirect('/admin');
   } else {
-    res.redirect('/');
+    res.redirect('/home');
   }
 })
 
 // Signup
-router.get('/', (req, res) => {
+router.get('/signup', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/home');
     return;
   }
 
-  res.render('login');
+  res.render('signup');
 });
 
 
 // Login
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/home');
+    res.redirect('/');
     return;
   }
   res.render('login');
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 // Profile
 router.get('/profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   };
 
