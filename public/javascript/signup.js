@@ -16,7 +16,7 @@ async function signupFormHandler(event) {
 
     // console.log("button clicked!");
 
-    const name = document.querySelector('#orangeForm-name').value.trim();
+    const first_name = document.querySelector('#orangeForm-name').value.trim();
     const email = document.querySelector('#orangeForm-email').value.trim();
     const password = document.querySelector('#orangeForm-pass').value.trim();
    

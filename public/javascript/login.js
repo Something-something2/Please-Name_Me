@@ -21,7 +21,7 @@ async function loginFormHandler(event) {
         console.log(userLoginResponse);
 
         if (response.ok) {
-            document.location.replace('/home');
+            document.location.replace('/');
         } else {
             // alert(response.statusText);
             alert("Incorrect email or password.  Please try again.");
