@@ -1,30 +1,44 @@
-function initMap() {
-    var center = {lat: 36.174465, lng: -86.767960};
-    var locations = [
-        ['Nashville', 36.174465, -86.767960],
-      ['Los Angelas',   34.046438, -118.259653],
-      ['Santa Monica', 34.017951, -118.493567],
-      ['Pasadena', 34.143073, -118.132040],
-      ['Huntington Beach', 33.655199, -117.998640],
-      ['Glendale', 34.142823, -118.254569]
-    ];
-  var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: center
+// Create the script tag, set the appropriate attributes
+var script = document.createElement('script');
+script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDuW8hriTtxjhfk1GYdDvv7XRohfMMnkok&callback=initMap';
+script.defer = true;
+
+var map
+
+// Attach your callback function to the `window` object
+window.initMap = function (stuff) {
+    console.log(stuff);
+    // JS API is loaded and available
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: { lat: 34.046438, lng: -118.259653 }
     });
-  var infowindow =  new google.maps.InfoWindow({});
-  var marker, count;
-  for (count = 0; count < locations.length; count++) {
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[count][1], locations[count][2]),
-        map: map,
-        title: locations[count][0]
-      });
-  google.maps.event.addListener(marker, 'click', (function (marker, count) {
-        return function () {
-          infowindow.setContent(locations[count][0]);
-          infowindow.open(map, marker);
-        }
-      })(marker, count));
+    var locations = [
+        ['yup', 34.046438, -118.259653],
+        ['nope', 41.881832, -87.623177],
+        ['hey', 40.730610, -73.935242]
+    ];
+
+    var infowindow = new google.maps.InfoWindow({});
+    var marker, count;
+    for (count = 0; count < locations.length; count++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+            map: map,
+            title: locations[count][0]
+        });
+        google.maps.event.addListener(marker, 'click', (function (marker, count) {
+            return function () {
+                infowindow.setContent(locations[count][0]);
+                infowindow.open(map, marker);
+            }
+        })(marker, count));
     }
-  }
+};
+
+// Append the 'script' element to 'head'
+document.head.appendChild(script);
+
+
+
+
