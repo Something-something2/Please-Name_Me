@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 // Signup
 router.get('/', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/home');
     return;
   }
 
@@ -25,18 +25,18 @@ router.get('/', (req, res) => {
 
 
 // Login
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/home');
     return;
   }
-  res.render('login');
+  res.render(document.querySelector('#modalLoginForm'));
 });
 
 // Profile
 router.get('/profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/login');
+    res.redirect('/');
     return;
   };
 
@@ -77,7 +77,7 @@ router.get('/profile', (req, res) => {
 // Edit-Profile
 router.get('/edit-profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/login');
+    res.redirect('/');
     return;
   };
 
