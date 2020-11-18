@@ -33,13 +33,13 @@ router.get('/', withAuth, (req, res) => {
 });
 
 // Signup
-router.get('/signup', (req, res) => {
+router.get('/sign-up', (req, res) => {
     if (req.session.loggedIn) {
       res.redirect('/');
       return;
     }
   
-    res.render('signup');
+    res.render('sign-up');
   });
   
   // Login

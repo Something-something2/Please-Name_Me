@@ -1,2 +1,0 @@
-INSERT INTO pin (lat, long)
-VALUES (32.349998, -95.300003);

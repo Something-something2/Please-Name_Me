@@ -16,18 +16,18 @@ async function signupFormHandler(event) {
 
     // console.log("button clicked!");
 
-    
-    const email = document.querySelector('#inputEmail').value.trim();
-    const password = document.querySelector('#inputPassword').value.trim();
+    const name = document.querySelector('#orangeForm-name').value.trim();
+    const email = document.querySelector('#orangeForm-email').value.trim();
+    const password = document.querySelector('#orangeForm-pass').value.trim();
    
 
-    const privacyPolicy = document.querySelector('#gridCheck');
-    // console.log(privacyPolicy.checked);
+    // const privacyPolicy = document.querySelector('#gridCheck');
+    // // console.log(privacyPolicy.checked);
 
-    if (!privacyPolicy.checked) {
-        alert("Please select that you've read and agree to our privacy policy!");
-        return;
-    };
+    // if (!privacyPolicy.checked) {
+    //     alert("Please select that you've read and agree to our privacy policy!");
+    //     return;
+    // };
 
     if (password.length < 4) {
         // console.log(password.length);
@@ -69,4 +69,4 @@ async function signupFormHandler(event) {
 
 
 
-document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
+document.getElementById('sign-up').addEventListener('click', signupFormHandler);
