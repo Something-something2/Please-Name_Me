@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 })
 
 // Signup
-router.get('/signup', (req, res) => {
+router.get('/', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
     return;
