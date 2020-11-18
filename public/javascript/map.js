@@ -1,106 +1,30 @@
-var map;
-    var service;
-    var infoWindow;
-    var marker;
-
-    function initialize() {
-        infoWindow = new google.maps.InfoWindow;
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-
-                map = new google.maps.Map(document.getElementById('pin-map'), {
-                    center: pos,
-                    zoom: 15
-                });
-
-                var request = {
-                    location: pos,
-                    radius: '41000',
-                    type: ['restaurant']
-                };
-
-                service = new google.maps.places.PlacesService(map);
-                service.nearbySearch(request, callback);
-
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('location found');
-                infoWindow.open(map);
-                map.setCenter(pos);
-
-
-
-            }, function () {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
+function initMap() {
+    var center = {lat: 36.174465, lng: -86.767960};
+    var locations = [
+        ['Nashville', 36.174465, -86.767960],
+      ['Los Angelas',   34.046438, -118.259653],
+      ['Santa Monica', 34.017951, -118.493567],
+      ['Pasadena', 34.143073, -118.132040],
+      ['Huntington Beach', 33.655199, -117.998640],
+      ['Glendale', 34.142823, -118.254569]
+    ];
+  var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: center
+    });
+  var infowindow =  new google.maps.InfoWindow({});
+  var marker, count;
+  for (count = 0; count < locations.length; count++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[count][1], locations[count][2]),
+        map: map,
+        title: locations[count][0]
+      });
+  google.maps.event.addListener(marker, 'click', (function (marker, count) {
+        return function () {
+          infowindow.setContent(locations[count][0]);
+          infowindow.open(map, marker);
         }
-
-
+      })(marker, count));
     }
-
-    function createMarker(places) {
-        var bounds = new google.maps.LatLngBounds();
-
-        for (var i = 0, place; place = places[i]; i++) {
-            var image = {
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25)
-            };
-
-
-            marker = new google.maps.Marker({
-                map: map,
-                icon: image,
-                title: place.name,
-                animation: google.maps.Animation.DROP,
-                position: place.geometry.location
-            });
-
-
-            var infowindow = new google.maps.InfoWindow({
-                content: places[i].name
-            });
-            // console.log(places[i].name)
-
-            marker.addListener("click", function () {
-                infowindow.open(marker.get("map"), marker);
-            });
-
-
-
-
-            bounds.extend(place.geometry.location);
-        }
-        map.fitBounds(bounds);
-
-    }
-
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-
-        infoWindow.open(map);
-    }
-
-    function callback(results, status) {
-        console.log(results, status);
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-            createMarker(results);
-
-
-        }
-    }
+  }
