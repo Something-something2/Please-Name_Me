@@ -10,3 +10,7 @@ footer {
     height: 500px;
     width: auto;
   }
+
+  #signInBtn {
+    margin: 5px;
+  }
