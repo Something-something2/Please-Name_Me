@@ -4,15 +4,6 @@ const { User, } = require('../models')
 
 
 
-router.get('/', (req, res) => {
-  console.log(req.session.admin);
-  if (req.session.admin) {
-    res.redirect('/admin');
-  } else {
-    res.redirect('/');
-  }
-})
-
 // Signup
 router.get('/', (req, res) => {
   if (req.session.loggedIn) {
