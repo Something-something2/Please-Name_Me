@@ -4,7 +4,7 @@ const {
     Pin,
     User,
     Comment,
-    //Image
+    Image
 } = require('../models')
 const fs = require('fs')
 const withAuth = require('../utils/auth');
@@ -13,10 +13,12 @@ var upload = multer({
     dest: 'uploads/'
 })
 
-router.get('/', (req, res) => {{
-    res.render('home', {
-        loggedIn: req.session.loggedIn
-    })}
+router.get('/', (req, res) => {
+    {
+        res.render('home', {
+            loggedIn: req.session.loggedIn
+        })
+    }
 });
 
 // GET single Pin
@@ -99,7 +101,7 @@ router.get('/profile', (req, res) => {
 });
 
 router.get('/profile/:id', (req, res) => {
-    user = User.findOne({
+    User.findOne({
             attributes: {
                 exclude: ['password']
             },
@@ -107,18 +109,18 @@ router.get('/profile/:id', (req, res) => {
                 id: req.params.id
             },
             include: [{
-                    model: Pin,
-                    attributes: ['id']
-                },
-                {
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'created_at']
-                },
-                {
-                    model: Image, 
-                    attributes: ['id', 'data']
-                }
-            ]
+                model: Pin,
+                attributes: ['id'],
+                include: [{
+                        model: Comment,
+                        attributes: ['id', 'comment_text', 'created_at']
+                    },
+                    {
+                        model: Image,
+                        attributes: ['id', 'data']
+                    }
+                ]
+            }, ]
         })
         .then(dbUserData => {
             if (!dbUserData) {
@@ -127,15 +129,16 @@ router.get('/profile/:id', (req, res) => {
                 });
                 return;
             }
-            res.json(dbUserData);
+            console.log(dbUserData)
+            res.render('profile', {
+                user: dbUserData.dataValues
+            });
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
-    res.render('profile', {
-        user
-    });
+
 });
 
 // Signup
