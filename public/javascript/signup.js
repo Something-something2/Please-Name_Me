@@ -10,7 +10,7 @@ const signupSeedJSON = {
     "password": "password",
 };
 
-$('#signupBtn').on('toggle', async function signupFormHandler(event) {
+$('#signup-form').on('submit', async function signupFormHandler(event) {
 
     event.preventDefault();
 
@@ -39,8 +39,6 @@ $('#signupBtn').on('toggle', async function signupFormHandler(event) {
         alert("Please make sure all of the fields are filled in!");
         return;
     };
-
-
 
 
     if (first_name && email && password) {
