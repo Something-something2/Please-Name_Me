@@ -8,6 +8,7 @@ const sequelize = require('../../config/connection');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
+const withAuth = require("../../utils/auth");
 
 router.get('/:id', (req, res) => {
   Pin.findOne({
@@ -64,7 +65,7 @@ router.get('/user/:id', (req, res) => {
     });
 })
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
 
   Pin.create({
       user_id: req.body.user_id,
@@ -78,7 +79,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Pin.update({
       user_id: req.body.user_id,
       lat: req.body.lat,
@@ -103,7 +104,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Pin.destroy({
       where: {
         id: req.params.id
@@ -124,13 +125,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.get('/upload/:id', (req, res) => {
-  res.render('upload', {
-      pin_id: req.params.id
-  })
-})
-
-router.post('/upload/:id', upload.single('image'), (req, res) => {
+router.post('/upload/:id',withAuth,  upload.single('image'), (req, res) => {
   try {
       console.log(req.file);
       console.log(__basedir + req.file.path)
