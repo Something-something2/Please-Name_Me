@@ -10,7 +10,7 @@ const signupSeedJSON = {
     "password": "password",
 };
 
-$('#signupBtn').on('toggle', async function signupFormHandler(event) {
+$('.signup-form').on('submit', async function signupFormHandler(event) {
 
     event.preventDefault();
 
