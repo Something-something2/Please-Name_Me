@@ -10,17 +10,15 @@ const signupSeedJSON = {
     "password": "password",
 };
 
-
-
-async function signupFormHandler(event) {
+$('#signupBtn').on('toggle', async function signupFormHandler(event) {
 
     event.preventDefault();
 
     // console.log("button clicked!");
 
-    const first_name = document.querySelector('#orangeForm-name').value.trim();
-    const email = document.querySelector('#orangeForm-email').value.trim();
-    const password = document.querySelector('#orangeForm-pass').value.trim();
+    const first_name = document.querySelector('#inputFirstName').value.trim();
+    const email = document.querySelector('#inputEmail').value.trim();
+    const password = document.querySelector('#inputPassword').value.trim();
    
 
     // const privacyPolicy = document.querySelector('#gridCheck');
@@ -61,13 +59,15 @@ async function signupFormHandler(event) {
         // check the response status
         if (response.ok) {
             // console.log('success');
-            document.location.replace('/');
+            document.location.replace('/home');
         } else {
             alert(response.statusText);
         }
     }
-};
+});
 
 
 
-document.querySelector('#signUpBtn').addEventListener('click', console.log('poop'));
+
+
+

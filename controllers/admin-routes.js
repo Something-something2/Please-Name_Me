@@ -1,28 +1,41 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection')
 const {
-    Pin,
-    User,
-    Image
+  Pin,
+  User,
+  Image
 } = require('../models')
 const fs = require('fs')
 const withAuth = require('../utils/auth');
 var multer = require('multer')
 var upload = multer({
-    dest: 'uploads/'
+  dest: 'uploads/'
 })
 
 router.get('/', withAuth, (req, res) => {
   console.log(req.session);
   Pin.findAll({
     order: ['DESC'],
+    where: {
+      // use the ID from the session
+      user_id: req.session.user_id
+    },
     attributes: [
       'id',
+      'user_id',
+      'lat',
+      'long'
     ],
     include: [
       {
         model: User,
         attributes: ['first_name', 'admin']
+
+      },
+      {
+        model: Comment,
+        attributes: ['comment_text']
+
       }
     ]
   })

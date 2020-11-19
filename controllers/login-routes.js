@@ -16,11 +16,11 @@ router.get('/', (req, res) => {
 // Signup
 router.get('/', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/home');
     return;
   }
 
-  res.render(document.querySelector('#modalRegisterForm'));
+  res.render('signup');
 });
 
 
