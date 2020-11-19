@@ -10,13 +10,15 @@ const signupSeedJSON = {
     "password": "password",
 };
 
+
+
 async function signupFormHandler(event) {
 
     event.preventDefault();
 
     // console.log("button clicked!");
 
-    const name = document.querySelector('#orangeForm-name').value.trim();
+    const first_name = document.querySelector('#orangeForm-name').value.trim();
     const email = document.querySelector('#orangeForm-email').value.trim();
     const password = document.querySelector('#orangeForm-pass').value.trim();
    
@@ -68,6 +70,4 @@ async function signupFormHandler(event) {
 
 
 
-
-
-document.getElementById('sign-up').addEventListener('click', signupFormHandler);
+document.querySelector('#signUpBtn').addEventListener('click', console.log('poop'));
