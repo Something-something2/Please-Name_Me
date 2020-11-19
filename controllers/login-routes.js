@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     return;
   }
 
-  res.render(document.querySelector('#modalRegisterForm'));
+  res.render('signup');
 });
 
 
