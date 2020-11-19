@@ -92,15 +92,14 @@ router.post('/login', (req, res) => {
             req.session.loggedIn = true;
             if (dbUserData.admin) {
                 req.session.admin = true;
-
-                res.json({ user: dbUserData, message: 'You are now logged in!' });
             }
         });
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
 });
 
 //Logout
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(204).end();

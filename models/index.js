@@ -19,7 +19,7 @@ Comment.belongsTo(Pin, {
     foreignKey: 'pin_id'
 });
 
-Pin.hasMany(Comment, {
+Pin.hasMany(Image, {
     foreignKey: "pin_id"
 });
 

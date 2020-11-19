@@ -1,8 +1,7 @@
-$('#loginBtn').on('submit', async function loginFormHandler(event) {
+$('#submit').on('click', async function loginFormHandler(event) {
     event.preventDefault();
 
     console.log("button clicked!");
-
 
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
@@ -14,18 +13,15 @@ $('#loginBtn').on('submit', async function loginFormHandler(event) {
                 email,
                 password
             }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
-
-        let userLoginResponse = await response.json();
-        console.log(userLoginResponse);
-
+        
         if (response.ok) {
-            document.location.replace('/home');
+            document.location.replace('/profile');
         } else {
-            // alert(response.statusText);
             alert("Incorrect email or password.  Please try again.");
         }
     }
 })
-
