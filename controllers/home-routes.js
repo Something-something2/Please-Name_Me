@@ -13,11 +13,10 @@ var upload = multer({
     dest: 'uploads/'
 })
 
-router.get('/', (req, res) => {
-    console.log(req.session);
+router.get('/', (req, res) => {{
     res.render('home', {
-        loggedIn
-    })
+        loggedIn: req.session.loggedIn
+    })}
 });
 
 // GET single Pin
@@ -85,25 +84,57 @@ router.get('/add-pin/:id', withAuth, (req, res) => {
 });
 
 // Edit-Profile
-router.get('/edit-profile',withAuth, (req, res) => {
-    if (!req.session.loggedIn) {
-        res.redirect('/login');
-        return;
-    }
-
+router.get('/edit-profile', withAuth, (req, res) => {
     res.render('edit-profile');
 });
 
-// Add-Log
-router.get('/add-log/:id', withAuth, (req, res) => {
-    
-    res.render('add-log');
-});
 
 // Profile
-router.get('/profile', withAuth, (req, res) => {
+router.get('/profile', (req, res) => {
+    if (req.session.loggedIn) {
+        res.redirect(`/profile/${req.session.user_id}`)
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.get('/profile/:id', (req, res) => {
+    user = User.findOne({
+            attributes: {
+                exclude: ['password']
+            },
+            where: {
+                id: req.params.id
+            },
+            include: [{
+                    model: Pin,
+                    attributes: ['id']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'created_at']
+                },
+                {
+                    model: Image, 
+                    attributes: ['id', 'data']
+                }
+            ]
+        })
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({
+                    message: 'No user found with this id'
+                });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
     res.render('profile', {
-        user_id: res.session.user_id
+        user
     });
 });
 
@@ -115,6 +146,6 @@ router.get('/signup', (req, res) => {
 // Login
 router.get('/login', (req, res) => {
     res.render('login');
-  });
-  
+});
+
 module.exports = router;
