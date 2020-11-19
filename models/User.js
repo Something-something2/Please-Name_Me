@@ -25,11 +25,6 @@ User.init(
       // turn on auto increment
       autoIncrement: true
     },
-    // define a first name column
-    first_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     // define an email column
     email: {
       type: DataTypes.STRING,
