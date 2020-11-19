@@ -1,4 +1,4 @@
-$('#loginBtn').on('toggle', async function loginFormHandler(event) {
+$('#loginBtn').on('submit', async function loginFormHandler(event) {
     event.preventDefault();
 
     console.log("button clicked!");
