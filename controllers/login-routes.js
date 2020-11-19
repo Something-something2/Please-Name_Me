@@ -4,23 +4,23 @@ const { User, } = require('../models')
 
 
 
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   console.log(req.session.admin);
   if (req.session.admin) {
     res.redirect('/admin');
   } else {
-    res.redirect('/home');
+    res.redirect('/');
   }
 })
 
 // Signup
-router.get('/signup', (req, res) => {
+router.get('/', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/home');
     return;
   }
 
-  res.render('signup');
+  res.render(document.querySelector('#modalRegisterForm'));
 });
 
 
@@ -77,7 +77,7 @@ router.get('/profile', (req, res) => {
 // Edit-Profile
 router.get('/edit-profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   };
 
