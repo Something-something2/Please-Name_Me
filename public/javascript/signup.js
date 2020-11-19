@@ -1,10 +1,9 @@
-$('.signup-form').on('submit', async function signupFormHandler(event) {
+async function signupFormHandler(event) {
 
     event.preventDefault();
 
     // console.log("button clicked!");
 
-    const first_name = document.querySelector('#inputFirstName').value.trim();
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
     const privacyPolicy = document.querySelector('#gridCheck').checked;
@@ -19,12 +18,12 @@ $('.signup-form').on('submit', async function signupFormHandler(event) {
         return;
     };
 
-    if (!first_name || !email || !password) {
+    if (!email || !password) {
         alert("Please make sure all of the fields are filled in!");
         return;
     };
 
-    if (first_name && email && password) {
+    if (email && password) {
         const response = await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
@@ -41,9 +40,9 @@ $('.signup-form').on('submit', async function signupFormHandler(event) {
             alert(response.statusText);
         }
     }
-});
+};
 
-
+document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
 
 
 
