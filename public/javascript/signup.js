@@ -10,6 +10,8 @@ const signupSeedJSON = {
     "password": "password",
 };
 
+
+
 async function signupFormHandler(event) {
 
     event.preventDefault();
@@ -68,4 +70,4 @@ async function signupFormHandler(event) {
 
 
 
-document.querySelector('#modalRegisterForm').addEventListener('click', console.log('poop'));
+document.querySelector('#signUpBtn').addEventListener('click', console.log('poop'));
