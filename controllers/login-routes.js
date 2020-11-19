@@ -20,23 +20,23 @@ router.get('/', (req, res) => {
     return;
   }
 
-  res.render(document.querySelector('#modalRegisterForm'));
+  res.render('signup');
 });
 
 
 // Login
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/home');
+    res.redirect('/');
     return;
   }
-  res.render(document.querySelector('#modalLoginForm'));
+  res.render('login');
 });
 
 // Profile
 router.get('/profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   };
 
@@ -77,7 +77,7 @@ router.get('/profile', (req, res) => {
 // Edit-Profile
 router.get('/edit-profile', (req, res) => {
   if (!req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   };
 
