@@ -8,25 +8,26 @@
 </div>
 
 <form>
-    <div class="container text-center my-5">
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Latitude">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Longitude">
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-primary btn-sm">Add location</button>
-            </div>
-        </div>
+    <div class="container my-5">
         <div class="row my-5">
             <div class="col">
-                <button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='/edit-profile'">Edit profile</button>
+                <h4 class="text-center">Places you've been!</h4>
+            </div>
+        </div>
+        <div class="row my-5 text-center">
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='/add-pin'">Add
+                    location</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='/edit-profile'">Edit
+                    profile</button>
             </div>
         </div>
     </div>
 </form>
+
+
 
 <script src="/javascript/profile.js"></script>
 <script src="/javascript/map.js"></script>
