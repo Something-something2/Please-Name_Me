@@ -10,7 +10,7 @@ window.initMap = function (stuff) {
     console.log(stuff);
     // JS API is loaded and available
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
+        zoom: 3,
         center: { lat: 34.046438, lng: -118.259653 }
     });
     var locations = [
