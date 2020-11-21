@@ -129,7 +129,6 @@ router.get('/profile/:id', (req, res) => {
                 });
                 return;
             }
-            console.log(dbUserData)
             res.render('profile', {
                 user: dbUserData.dataValues
             });
