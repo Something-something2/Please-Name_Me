@@ -64,13 +64,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <!--{{#if admin}}
+                    {{#if admin}}
                     <li class="nav-item">
                         <a class="nav-link" href="/admin">Admin Portal</a>
                     </li>
                     {{else}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                        <a class="nav-link" href="/profile">Profile</a>
                     </li>
                     {{/if}}
                     <li class="nav-item">
@@ -81,7 +81,7 @@
                     </li>-->
                     <!--{{#if loggedIn}}-->
                     <li class="nav-item">
-                        <a class="nav-link" href="" id="logout">Logout</a>
+                        <a class="nav-link" href="/api/users/logout" id="logout">Logout</a>
                     </li>
                     <!--{{else}}-->
                     <li class="nav-item">
