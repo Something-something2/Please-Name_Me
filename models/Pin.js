@@ -20,14 +20,14 @@ Pin.init(
             }
         },
         lat: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DECIMAL(10, 4),
             validate: {
                 isDecimal: true
             },
             allowNull: false
         },
         long: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DECIMAL(10, 4),
             validate: {
                 isDecimal: true
             },

@@ -65,8 +65,7 @@ router.get('/user/:id', (req, res) => {
     });
 })
 
-router.post('/', withAuth, (req, res) => {
-
+router.post('/', (req, res) => {
   Pin.create({
       user_id: req.body.user_id,
       lat: req.body.lat,
