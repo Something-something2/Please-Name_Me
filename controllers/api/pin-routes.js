@@ -47,7 +47,7 @@ router.get('/user/:id', (req, res) => {
         user_id: req.params.id
       },
       attributes: [
-        'id', 'lat', 'long'
+        'id', 'lat', 'lon'
       ],
     })
     .then(dbPinData => {
@@ -69,7 +69,7 @@ router.post('/', (req, res) => {
   Pin.create({
       user_id: req.body.user_id,
       lat: req.body.lat,
-      long: req.body.long
+      lon: req.body.lon
     })
     .then(dbPinData => res.json(dbPinData))
     .catch(err => {
@@ -82,7 +82,7 @@ router.put('/:id', withAuth, (req, res) => {
   Pin.update({
       user_id: req.body.user_id,
       lat: req.body.lat,
-      long: req.body.long
+      lon: req.body.lon
     }, {
       where: {
         id: req.params.id

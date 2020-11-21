@@ -1,19 +1,31 @@
 <form class="container mt-5 new-log-form">
 
-
-    <div class="form-group row">
-        <label for="inputComments" class="col-sm-3">Comments:</label>
-        <div class="col-sm-9">
-            <textarea class="form-control" id="inputComments" rows="5" placeholder="Tell us how you feel..."></textarea>
+    <form>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="City">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Latitude">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Longitude">
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-12 text-right mt-3">
-            <button type="submit" class="btn btn-primary">Add Log</button>
+        <div class="row my-5">
+            <div class="col">
+                <label for="inputComments" class="col text-right">Comments:</label>
+            </div>
+            <div class="col-9">
+                <textarea class="form-control" id="inputComments" rows="5"
+                    placeholder="Tell us how you feel..."></textarea>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12 text-right mt-3">
+                <button type="submit" class="btn btn-primary">Add Location</button>
+            </div>
+        </div>
+    </form>
 
-</form>
-
-<script src="/javascript/add-pin.js"></script>
+    <script src="/javascript/add-pin.js"></script>

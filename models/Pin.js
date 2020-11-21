@@ -19,6 +19,14 @@ Pin.init(
                 key: 'id'
             }
         },
+        city: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isString: true
+            },
+            allowNull: false
+        },
         lat: {
             type: DataTypes.DECIMAL(10, 4),
             validate: {
@@ -26,7 +34,7 @@ Pin.init(
             },
             allowNull: false
         },
-        long: {
+        lon: {
             type: DataTypes.DECIMAL(10, 4),
             validate: {
                 isDecimal: true
