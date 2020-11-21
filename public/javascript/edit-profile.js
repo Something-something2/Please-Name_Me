@@ -7,8 +7,6 @@ async function editFormHandler(event) {
     const id = document.querySelector('#user_id').innerHTML.trim();
     // console.log(id);
 
-
-    const first_name = document.querySelector('#inputFirstName').value.trim();
     const email = document.querySelector('#inputEmail').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
     
@@ -24,17 +22,16 @@ async function editFormHandler(event) {
         return;
     };
 
-    if (!first_name || !email || !password) {
+    if (!email || !password) {
         alert("Please make sure all of the fields are filled in!");
         return;
     };
 
-    if (first_name && email && password) {
+    if (email && password) {
         // TODO: need to find a way to get user id for below...
         const response = await fetch(`/api/users/${id}`, {
             method: 'PUT',
             body: JSON.stringify({
-                first_name,
                 email,
                 password,
             }),

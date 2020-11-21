@@ -1,4 +1,4 @@
-$('#submit').on('click', async function loginFormHandler(event) {
+async function loginFormHandler(event) {
     event.preventDefault();
 
     console.log("button clicked!");
@@ -20,8 +20,11 @@ $('#submit').on('click', async function loginFormHandler(event) {
         
         if (response.ok) {
             document.location.replace('/profile');
+            document.location.replace(`/profile`);
         } else {
             alert("Incorrect email or password.  Please try again.");
         }
     }
-})
+};
+
+document.querySelector('#submit').addEventListener('click', loginFormHandler);
