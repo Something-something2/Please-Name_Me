@@ -53,6 +53,6 @@ async function newPinHandler() {
     }
 }
 
-document.querySelector('.new-pin-form').addEventListener('submit', getUserProfile);
+document.querySelector('#locBtn').addEventListener('submit', getUserProfile);
 
   
