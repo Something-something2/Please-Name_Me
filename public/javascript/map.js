@@ -18,19 +18,11 @@ $.get(`../api/pins/user/${user_id}`).then(function (data) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[count].lat, data[count].long),
             map: map,
-<<<<<<< HEAD
             title: data[count].city
         });
         google.maps.event.addListener(marker, 'click', (function (marker, count) {
             return function () {
                 infowindow.setContent(data[count].city);
-=======
-            title: "Indev"
-        });
-        google.maps.event.addListener(marker, 'click', (function (marker, count) {
-            return function () {
-                infowindow.setContent("Indev");
->>>>>>> 2902a91b4bb69a84cef1ab657d3ded9c47cf4584
                 infowindow.open(map, marker);
             }
         })(marker, count));
