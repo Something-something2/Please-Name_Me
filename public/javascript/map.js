@@ -18,11 +18,11 @@ $.get(`../api/pins/user/${user_id}`).then(function (data) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[count].lat, data[count].lon),
             map: map,
-            title: "City"
+            title: data[count].city
         });
         google.maps.event.addListener(marker, 'click', (function (marker, count) {
             return function () {
-                infowindow.setContent("City");
+                infowindow.setContent(data[count].city);
                 infowindow.open(map, marker);
             }
         })(marker, count));

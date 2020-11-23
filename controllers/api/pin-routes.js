@@ -47,7 +47,7 @@ router.get('/user/:id', (req, res) => {
         user_id: req.params.id
       },
       attributes: [
-        'id', 'lat', 'lon'
+        'id', 'city', 'lat', 'lon'
       ],
     })
     .then(dbPinData => {
