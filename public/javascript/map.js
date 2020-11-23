@@ -16,7 +16,7 @@ $.get(`../api/pins/user/${user_id}`).then(function (data) {
     var marker, count;
     for (count = 0; count < data.length; count++) {
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(data[count].lat, data[count].long),
+            position: new google.maps.LatLng(data[count].lat, data[count].lon),
             map: map,
             title: data[count].city
         });
