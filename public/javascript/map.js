@@ -16,13 +16,13 @@ $.get(`../api/pins/user/${user_id}`).then(function (data) {
     var marker, count;
     for (count = 0; count < data.length; count++) {
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(data[count].lat, data[count].lon),
+            position: new google.maps.LatLng(data[count].lat, data[count].long),
             map: map,
-            title: "City"
+            title: "Indev"
         });
         google.maps.event.addListener(marker, 'click', (function (marker, count) {
             return function () {
-                infowindow.setContent("City");
+                infowindow.setContent("Indev");
                 infowindow.open(map, marker);
             }
         })(marker, count));

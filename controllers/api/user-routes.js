@@ -1,18 +1,26 @@
 const router = require("express").Router();
+const fs = require("fs")
 const { User, Pin, } = require('../../models');
 const withAuth = require("../../utils/auth");
-
+const multer = require('multer')
+const upload = multer({
+  dest: 'uploads/'
+})
 
 // Get /api/users
 router.get('/', (req, res) => {
     User.findAll({
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password'] },
+        where: {
+            id: req.params.id
+        },
+        include: [
+            {
+                model: Pin,
+                attributes: ['id']
+            }
+        ]
     })
-        .then(dbUserData => res.json(dbUserData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
 });
 
 //Get /api/users/1
@@ -45,7 +53,6 @@ router.get('/:id', (req, res) => {
 //POST /api/users
 router.post('/', (req, res) => {
     User.create({
-        first_name: req.body.first_name,
         email: req.body.email,
         password: req.body.password,
         admin: req.body.admin
@@ -117,7 +124,7 @@ router.put("/:id", withAuth, (req, res) => {
     User.update(req.body, {
         individualHooks: true,
         where: {
-            id: req.params.id
+            id: req.session.user_id
         }
     })
         .then(dbUserData => {
