@@ -33,12 +33,16 @@ async function getUserProfile(event) {
 async function newPinHandler() {
 
     
-
+    const city_input = document.querySelector('#city').value.trim();
+    const lat_input = document.querySelector('#lat').value.trim();
+    const lon_input = document.querySelector('#lon').value.trim();
 
     const response = await fetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify({
-            
+            city_input,
+            lat_input,
+            lon_input
         }),
         headers: {
             'Content-Type': 'application/json'

@@ -4,12 +4,13 @@ async function editFormHandler(event) {
 
     // console.log("button clicked!");
 
-    const id = document.querySelector('#user_id').innerHTML.trim();
-    // console.log(id);
+    const id = window.parent.location.toString().split('/')[
+        window.location.toString().split('/').length - 1];
+    console.log("id", id)
 
-    const email = document.querySelector('#inputEmail').value.trim();
-    const password = document.querySelector('#inputPassword').value.trim();
-    
+    const email = document.querySelector('input[email="email"]').value.trim();
+    const password = document.querySelector('input[password="password"]').value.trim();
+
 
     if (!password) {
         alert("Please enter a new password!");
@@ -41,7 +42,7 @@ async function editFormHandler(event) {
 
         // check the response status
         if (response.ok) {
-            // console.log('success');
+            console.log("id", id)
             document.location.replace('/profile');
         } else {
             alert(response.statusText);
@@ -49,4 +50,4 @@ async function editFormHandler(event) {
     }
 };
 
-document.querySelector('#submit-edit-profile').addEventListener('click', editFormHandler);
+document.querySelector('.edit-user-form').addEventListener('submit', editFormHandler);
