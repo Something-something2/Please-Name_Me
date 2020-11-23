@@ -33,16 +33,16 @@ async function getUserProfile(event) {
 async function newPinHandler() {
 
     
-    const city_input = document.querySelector('#city').value.trim();
-    const lat_input = document.querySelector('#lat').value.trim();
-    const lon_input = document.querySelector('#lon').value.trim();
+    const city = document.querySelector('#city').value.trim();
+    const lat = document.querySelector('#lat').value.trim();
+    const lon = document.querySelector('#lon').value.trim();
 
     const response = await fetch(`/api/posts`, {
         method: 'POST',
         body: JSON.stringify({
-            city_input,
-            lat_input,
-            lon_input
+            city,
+            lat,
+            lon
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ async function newPinHandler() {
     
 
     if (response.ok) {
-        document.location.replace('/');
+        document.location.replace('/profile');
     } else {
         alert(response.statusText);
     }
