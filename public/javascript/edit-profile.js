@@ -7,7 +7,7 @@ async function editFormHandler(event) {
     const id = document.querySelector('#user_id').innerHTML.trim();
     // console.log(id);
 
-    const email = document.querySelector('#inputEmail').value.trim();
+    const email = document.querySelector('#email').value.trim();
     const password = document.querySelector('#inputPassword').value.trim();
     
 

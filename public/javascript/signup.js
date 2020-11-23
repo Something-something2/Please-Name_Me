@@ -4,8 +4,8 @@ async function signupFormHandler(event) {
 
     // console.log("button clicked!");
 
-    const email = document.querySelector('#inputEmail').value.trim();
-    const password = document.querySelector('#inputPassword').value.trim();
+    const email = document.querySelector('#email-signup').value.trim();
+    const password = document.querySelector('#password-signup').value.trim();
     const privacyPolicy = document.querySelector('#gridCheck').checked;
 
     if (!privacyPolicy) {
@@ -24,7 +24,7 @@ async function signupFormHandler(event) {
     };
 
     if (email && password) {
-        const response = await fetch('/api/users', {
+        const response = await fetch('api/users', {
             method: 'post',
             body: JSON.stringify({
                 email,
@@ -42,7 +42,7 @@ async function signupFormHandler(event) {
     }
 };
 
-document.querySelector('#submit').addEventListener('click', signupFormHandler);
+document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
 
 
 
