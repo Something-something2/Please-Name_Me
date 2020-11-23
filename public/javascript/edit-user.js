@@ -7,8 +7,8 @@ async function editFormHandler(event) {
     const id = document.querySelector('#user_id').innerHTML.trim();
     // console.log(id);
 
-    const email = document.querySelector('#email').value.trim();
-    const password = document.querySelector('#inputPassword').value.trim();
+    const email = document.querySelector('#email-login').value.trim();
+    const password = document.querySelector('#password-login').value.trim();
     
 
     if (!password) {
@@ -49,4 +49,4 @@ async function editFormHandler(event) {
     }
 };
 
-document.querySelector('#submit-edit-profile').addEventListener('click', editFormHandler);
+document.querySelector('#submit-edit-user').addEventListener('click', editFormHandler);
