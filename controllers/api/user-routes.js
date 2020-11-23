@@ -134,7 +134,7 @@ router.put("/:id", withAuth, (req, res) => {
 });
 
 // DELETE /api/users/1
-
+/*
 router.delete("/:id", withAuth, (req, res) => {
     User.destroy({
         where: {
@@ -153,5 +153,5 @@ router.delete("/:id", withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
-
+*/
 module.exports = router; 
