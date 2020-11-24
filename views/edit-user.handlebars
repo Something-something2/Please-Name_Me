@@ -22,8 +22,6 @@
         </div>
 
 
-    </fieldset>
-
     <div class="form-row mt-3">
 
         <div class="col-sm-12 text-center mt-3">
@@ -33,6 +31,11 @@
     </div>
 
 </form>
-
-
+{{else}}
+  <h1 href="/login">Unable to edit information, You are not logged in</h1>
+  
+  {{/if}}
 <script src="/javascript/edit-user.js"></script>
+
+</body>
+</html>

@@ -1,37 +1,67 @@
-<form class="container mt-5 new-log-form">
+{{> pin-info post}}
+<form class="container mt-5 new-pin-form">
 
-    <form>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="City">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Latitude">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Longitude">
-            </div>
+    <div class="form-group row new-pin-div">
+        <label for="pin-city city" class="col-sm-3 col-form-label">City </label>
+        <div class="col-sm-9">
+            <input name="pin-city" type="text" class="form-control" id="pin-city city" placeholder="City Name">
         </div>
-        <div class="row my-5">
-            <div class="col">
-                <label for="inputComments" class="col text-right">Comments:</label>
-            </div>
-            <div class="col-9">
-                <textarea class="form-control" id="inputComments" rows="5"
-                    placeholder="Tell us how you feel..."></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Upload photo</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 text-right mt-3">
-                <button type="submit" id="locBtn" class="btn btn-primary">Add Location</button>
-            </div>
-        </div>
-    </form>
+    </div>
 
-    <script src="/javascript/add-pin.js"></script>
+    <div class="form-group row">
+        <label for="pin-lat lat" class="col-sm-3 col-form-label">Latitude </label>
+        <div class="col-sm-9">
+            <input name="pin-lat" type="decimal" class="form-control" id="pin-lat lat" placeholder="Latitude">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="pin-lon lon" class="col-sm-3 col-form-label">Longitude </label>
+        <div class="col-sm-9">
+            <input name="pin-lon" type="decimal" class="form-control" id="pin-lon lon" placeholder="Longitude">
+        </div>
+    </div>
+
+
+ 
+    <div class="row my-5 comment-div" id="comment">
+        <div class="col">
+            <label for="comment-body" class="col text-right">Comments:</label>
+        </div>
+        <div class="col-9">
+            <textarea class="form-control" id="inputComments" rows="5" name="comment-body"></textarea>
+        </div>
+    </div>
+ 
+
+    {{> comments post.comments}}
+
+    <div class="image-div">
+        <div>
+            <h2 class="center-text">Add image</h2>
+            <img style="border:5px solid #38302e;;width:300px;" id="preview" default="/images/default.png" width=200
+                src="{{pin.image}}" />
+            <div class="center-text">
+                <form id="fileUpload" action="/api/pins/image" method="post">
+                    <input type="file" name="image" id="fileSelector">
+                    {{!-- <input type="submit" /> --}}
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right mt-3">
+            <button type="submit" id="add-image-btn" class="btn btn-primary">Add Pin</button>
+        </div>
+        {{!-- <label for="file">Upload Progress:</label>
+      <progress id="file" max=”100” value=”0”></progress><br><br> --}}
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right mt-3">
+            <button type="submit" id="add-pin-btn" class="btn btn-primary">Add Pin</button>
+        </div>
+    </div>
+</form>
+
+<script src="/javascript/add-pin.js"></script>
+<script src="/javascript/comment.js.js"></script>
+<script src="/javascript/add-image.js"></script>
