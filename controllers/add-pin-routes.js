@@ -11,12 +11,12 @@ var multer = require('multer')
 var upload = multer({
     dest: 'uploads/'
 })
-
-router.get('/', withAuth, (req, res) => {
+// took out with Auth for demo purposes
+router.get('/', (req, res) => {
     Pin.findAll({
         where: {
             // use the ID from the session
-            user_id: req.session.user_id
+            user_id: 1
         },
         attributes: [
             'id',

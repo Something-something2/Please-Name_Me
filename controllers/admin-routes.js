@@ -24,7 +24,7 @@ router.get('/', withAuth, (req, res) => {
       'id',
       'user_id',
       'lat',
-      'long'
+      'lon'
     ],
     include: [
       {

@@ -1,6 +1,6 @@
 user_id = window.location.href.split('/')[window.location.href.split('/').length - 1]
 var map
-
+console.log(user_id);
 $.get(`../api/pins/user/${user_id}`).then(function (data) {
     console.log(data)
     // JS API is loaded and available
