@@ -37,17 +37,17 @@ async function getUserProfile(event) {
 async function newPinHandler (event) {
     event.preventDefault();
 
-    const city = document.querySelector('input[name="pin-city"]').value;
-    const lat = document.querySelector('input[name="pin-lat"]').value;
-    const lon = document.querySelector('input[name="pin-lon"]').value;  
-
+    
+    const city = document.querySelector('#city').value.trim();
+    const lat = document.querySelector('#lat').value.trim();
+    const lon = document.querySelector('#lon').value.trim();
 
     const response = await fetch(`/api/pins`, {
         method: 'POST',
         body: JSON.stringify({
-          city,
-          lat,
-          lon  
+            city,
+            lat,
+            lon
         }),
         headers: {
             'Content-Type': 'application/json'

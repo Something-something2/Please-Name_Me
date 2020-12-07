@@ -19,12 +19,12 @@ async function loginFormHandler(event) {
         });
         
         if (response.ok) {
-            document.location.replace('/profile');
-            document.location.replace(`/profile`);
+            // document.location.replace('/profile');
+            console.log("A thing");
         } else {
             alert("Incorrect email or password.  Please try again.");
         }
     }
 };
 
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+document.querySelector('#log-in-page-btn').addEventListener('click', loginFormHandler);

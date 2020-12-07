@@ -13,13 +13,13 @@ var upload = multer({
     dest: 'uploads/'
 })
 
-router.get('/', (req, res) => {
-    {
-        res.render('profile', {
-            loggedIn: req.session.loggedIn
-        })
-    }
-});
+// router.get('/', (req, res) => {
+//     {
+//         res.render('profile', {
+//             loggedIn: req.session.loggedIn
+//         })
+//     }
+// });
 
 // GET single Pin
 router.get('/pin/:id', (req, res) => {
@@ -91,15 +91,19 @@ router.get('/edit-profile', withAuth, (req, res) => {
 
 
 // Profile
-router.get('/profile', (req, res) => {
+router.get('/', (req, res) => {
+    res.redirect(`/profile/1`)
     if (req.session.loggedIn) {
-        res.redirect(`/profile/${req.session.user_id}`)
+        console.log("You are logged in, redirecting...");
+        res.redirect(`/${req.session.user_id}`)
     } else {
-        res.redirect('/');
+        console.log("Please work.");
+        res.redirect('/login');
     }
 });
 
-router.get('/profile/:id', (req, res) => {
+router.get('/:id', (req, res) => {
+    console.log("This is different.");
     User.findOne({
             attributes: {
                 exclude: ['password']

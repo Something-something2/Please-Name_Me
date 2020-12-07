@@ -1,13 +1,13 @@
-function loginFormHandler(event) {
-    event.preventDefault();
-    document.location.replace("/login")
-};
+// function loginFormHandler(event) {
+//     event.preventDefault();
+//     document.location.replace("/login")
+// };
 
-function signupFormHandler(event) {
-    event.preventDefault();
-    document.location.replace("/signup")
-};
+// function signupFormHandler(event) {
+//     event.preventDefault();
+//     document.location.replace("/signup")
+// };
 
-document.getElementById("login").addEventListener("click", loginFormHandler)
+// document.getElementById("login").addEventListener("click", loginFormHandler)
 
-document.getElementById("signup").addEventListener("click", signupFormHandler)
+// document.getElementById("signup").addEventListener("click", signupFormHandler)
