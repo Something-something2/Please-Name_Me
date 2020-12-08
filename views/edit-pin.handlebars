@@ -1,0 +1,79 @@
+<a href="/profile"> &larr; Back to profile</a>
+<h2>
+    Edit Post
+</h2>
+{{> pin-info post}}
+
+
+<form class="container mt-5 edit-pin-form">
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" id="city" placeholder="City">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" id="lat" placeholder="Latitude">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" id="lon" placeholder="Longitude">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="pin-lat lat" class="col-sm-3 col-form-label">Latitude </label>
+        <div class="col-sm-9">
+            <input name="pin-lat" type="decimal" class="form-control" id="pin-lat" placeholder="Latitude">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="pin-lon lon" class="col-sm-3 col-form-label">Longitude </label>
+        <div class="col-sm-9">
+            <input name="pin-lon" type="decimal" class="form-control" id="pin-lon" placeholder="Longitude">
+        </div>
+    </div>
+
+
+
+    <div class="row my-5 comment-div" id="comment">
+        <div class="col">
+            <label for="comment-body" class="col text-right">Comments:</label>
+        </div>
+        <div class="col-9">
+            <textarea class="form-control" id="inputComments" rows="5" name="comment-body"></textarea>
+        </div>
+    </div>
+
+
+    {{> comments post.comments}}
+
+    <div class="image-div">
+        <div>
+            <h2 class="center-text">Add image</h2>
+            <img style="border:5px solid #38302e;;width:300px;" id="preview" default="/images/default.png" width=200
+                src="{{pin.image}}" />
+            <div class="center-text">
+                <form id="fileUpload" action="/api/pins/image" method="post">
+                    <input type="file" name="image" id="fileSelector">
+                    {{!-- <input type="submit" /> --}}
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right mt-3">
+            <button type="submit" id="add-image-btn" class="btn btn-primary">Add Pin</button>
+        </div>
+        {{!-- <label for="file">Upload Progress:</label>
+      <progress id="file" max=”100” value=”0”></progress><br><br> --}}
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-right mt-3">
+            <button type="submit" id="add-pin-btn" class="btn btn-primary">Add Pin</button>
+        </div>
+    </div>
+</form>
+
+
+<script src="/javascript/edit-pin.js"></script>
+<script src="/javascript/delete-post.js"></script>
+<script src="/javascript/comment.js"></script>
