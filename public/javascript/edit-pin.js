@@ -1,4 +1,6 @@
 
+
+
 async function editPinHandler() {
 
 
@@ -27,4 +29,4 @@ async function editPinHandler() {
     }
 }
 
-document.querySelector('#edit-pin-form').addEventListener('submit', getUserProfile);
+document.querySelector('#edit-pin-form').addEventListener('submit', editPinHandler);

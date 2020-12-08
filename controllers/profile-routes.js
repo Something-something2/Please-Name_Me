@@ -24,26 +24,26 @@ var upload = multer({
 // GET single Pin
 router.get('/pin/:id', (req, res) => {
     Pin.findOne({
-            where: {
-                id: req.params.id
-            },
-            attributes: [
-                'id',
-                'user_id',
-                'lat',
-                'lon'
-            ],
-            include: [{
-                    model: User,
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'user_id',
+            'lat',
+            'lon'
+        ],
+        include: [{
+            model: User,
 
-                },
-                {
-                    model: Comment,
-                    attributes: ['comment_text']
+        },
+        {
+            model: Comment,
+            attributes: ['comment_text']
 
-                }
-            ]
-        })
+        }
+        ]
+    })
         .then(dbPinData => {
             if (!dbPinData) {
                 res.status(404).json({
@@ -85,14 +85,47 @@ router.get('/add-pin/:id', withAuth, (req, res) => {
 });
 
 // Edit-Profile
-router.get('/edit-profile', withAuth, (req, res) => {
-    res.render('edit-profile');
+router.get('/edit/:id', withAuth, (req, res) => {
+    User.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id'        
+        ],
+        include: {
+            model: User,
+        }        
+    })
+        .then(dbPostData => {
+            if (!dbPostData) {
+                res.status(404).json({
+                    message: 'No user found with this id'
+                });
+                return;
+            }
+
+            // serialize the data
+            const post = dbPostData.get({
+                plain: true
+            });
+
+            // pass data to template
+            res.render('edit-user', {
+                post,
+                loggedIn: req.session.loggedIn
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 
 // Profile
 router.get('/', (req, res) => {
-    res.redirect(`/profile/1`)
+    res.redirect(`/profile`)
     if (req.session.loggedIn) {
         console.log("You are logged in, redirecting...");
         res.redirect(`/${req.session.user_id}`)
@@ -105,26 +138,26 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     console.log("This is different.");
     User.findOne({
-            attributes: {
-                exclude: ['password']
-            },
-            where: {
-                id: req.params.id
-            },
+        attributes: {
+            exclude: ['password']
+        },
+        where: {
+            id: req.params.id
+        },
+        include: [{
+            model: Pin,
+            attributes: ['id'],
             include: [{
-                model: Pin,
-                attributes: ['id'],
-                include: [{
-                        model: Comment,
-                        attributes: ['id', 'comment_text', 'created_at']
-                    },
-                    {
-                        model: Image,
-                        attributes: ['id', 'data']
-                    }
-                ]
-            }, ]
-        })
+                model: Comment,
+                attributes: ['id', 'comment_text', 'created_at']
+            },
+            {
+                model: Image,
+                attributes: ['id', 'data']
+            }
+            ]
+        },]
+    })
         .then(dbUserData => {
             if (!dbUserData) {
                 res.status(404).json({

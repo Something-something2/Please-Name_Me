@@ -1,4 +1,4 @@
-const  pinSeed= {
+/*const  pinSeed= {
    
 };
 
@@ -26,18 +26,23 @@ async function getUserProfile(event) {
     let userLoginResponse = await response.json();
     // console.log(userLoginResponse);
 
+    if (response.ok) {
+        newLogHandler();
+    } else {
+        alert(response.statusText);
+    }
 
+};*/
 
-};
-
-async function newPinHandler() {
+async function newPinHandler (event) {
+    event.preventDefault();
 
     
     const city = document.querySelector('#city').value.trim();
     const lat = document.querySelector('#lat').value.trim();
     const lon = document.querySelector('#lon').value.trim();
 
-    const response = await fetch(`/api/posts`, {
+    const response = await fetch(`/api/pins`, {
         method: 'POST',
         body: JSON.stringify({
             city,
@@ -57,6 +62,8 @@ async function newPinHandler() {
     }
 }
 
-document.querySelector('#locBtn').addEventListener('submit', getUserProfile);
+
+
+document.querySelector('.new-pin-form').addEventListener('submit', newPinHandler);
 
   

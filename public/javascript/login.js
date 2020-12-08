@@ -19,10 +19,10 @@ async function loginFormHandler(event) {
         });
         
         if (response.ok) {
-            // document.location.replace('/profile');
-            console.log("A thing");
+            document.location.replace('/profile');
+
         } else {
-            alert("Incorrect email or password.  Please try again.");
+            alert(response.statusText);
         }
     }
 };
