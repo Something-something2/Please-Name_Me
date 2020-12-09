@@ -38,11 +38,11 @@ async function newPinHandler (event) {
     event.preventDefault();
 
     
-    const city = document.querySelector('#city').value.trim();
-    const lat = document.querySelector('#lat').value.trim();
-    const lon = document.querySelector('#lon').value.trim();
+    const city = document.querySelector('input[name="city"]').value.trim();
+    const lat = document.querySelector('input[name="lat"]').value.trim();
+    const lon = document.querySelector('input[name="lon"]').value.trim();
 
-    const response = await fetch(`/api/pins`, {
+    const response = await fetch(`/api/pins/`, {
         method: 'POST',
         body: JSON.stringify({
             city,
@@ -64,6 +64,6 @@ async function newPinHandler (event) {
 
 
 
-document.querySelector('.new-pin-form').addEventListener('submit', newPinHandler);
+document.querySelector('.new-pin-btn').addEventListener('click', newPinHandler);
 
   

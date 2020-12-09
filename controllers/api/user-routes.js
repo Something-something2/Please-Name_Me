@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const fs = require("fs")
-const { User, Pin, } = require('../../models');
+const { User, Pin, Comment, Image } = require('../../models');
 const withAuth = require("../../utils/auth");
 const multer = require('multer')
 const upload = multer({
@@ -9,18 +9,15 @@ const upload = multer({
 
 // Get /api/users
 router.get('/', (req, res) => {
+    // Access our User model and run .findAll() method
     User.findAll({
-        attributes: { exclude: ['password'] },
-        where: {
-            id: req.params.id
-        },
-        include: [
-            {
-                model: Pin,
-                attributes: ['id']
-            }
-        ]
-    })
+            attributes: { exclude: ['password'] }
+        })
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 //Get /api/users/1
@@ -33,7 +30,11 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Pin,
-                attributes: ['id']
+                attributes: ['id'],
+                include: {
+                    model: Comment,
+                    model: Image
+                }
             }
         ]
     })
@@ -44,29 +45,6 @@ router.get('/:id', (req, res) => {
             }
             res.json(dbUserData);
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-
-//POST /api/users
-router.post('/', (req, res) => {
-    User.create({
-        email: req.body.email,
-        password: req.body.password,
-        admin: req.body.admin
-    })
-        .then(dbUserData => {
-            req.session.save(() => {
-                req.session.user_id = dbUserData.id;
-                req.session.email = dbUserData.email;
-                req.session.loggedIn = true;
-
-                res.json(dbUserData);
-            });
-        })
-
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -97,13 +75,33 @@ router.post('/login', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.email = dbUserData.email;
             req.session.loggedIn = true;
-            if (dbUserData.admin) {
-                req.session.admin = true;
-            }
         });
         res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
 });
+
+//POST /api/users
+router.post('/', (req, res) => {
+    User.create({
+        email: req.body.email,
+        password: req.body.password,
+    })
+        .then(dbUserData => {
+            req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.email = dbUserData.email;
+                req.session.loggedIn = true;
+
+                res.json(dbUserData);
+            });
+        })
+
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
 
 //Logout
 router.post('/logout', (req, res) => {
@@ -120,11 +118,11 @@ router.post('/logout', (req, res) => {
 
 
 // PUT /api/users/1
-router.put("/:id", withAuth, (req, res) => {
+router.put("/:id", (req, res) => {
     User.update(req.body, {
         individualHooks: true,
         where: {
-            id: req.session.user_id
+            id: req.params.id
         }
     })
         .then(dbUserData => {
@@ -141,8 +139,8 @@ router.put("/:id", withAuth, (req, res) => {
 });
 
 // DELETE /api/users/1
-/*
-router.delete("/:id", withAuth, (req, res) => {
+
+router.delete("/:id", (req, res) => {
     User.destroy({
         where: {
             id: req.params.id
@@ -160,5 +158,6 @@ router.delete("/:id", withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
-*/
+
+
 module.exports = router; 

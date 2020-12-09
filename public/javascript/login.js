@@ -1,8 +1,6 @@
 async function loginFormHandler(event) {
     event.preventDefault();
 
-    console.log("button clicked!");
-
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
 
@@ -19,7 +17,7 @@ async function loginFormHandler(event) {
         });
         
         if (response.ok) {
-            document.location.replace('/profile/1');
+            document.location.replace('/profile');
 
         } else {
             alert(response.statusText);

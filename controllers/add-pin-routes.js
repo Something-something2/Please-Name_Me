@@ -6,7 +6,7 @@ const {
     Image
 } = require('../models')
 const fs = require('fs')
-const withAuth = require('../utils/auth');
+
 var multer = require('multer')
 var upload = multer({
     dest: 'uploads/'
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     Pin.findAll({
         where: {
             // use the ID from the session
-            user_id: 1
+            user_id: req.session.id
         },
         attributes: [
             'id',
@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/edit/:id', withAuth, (req, res) => {
+router.get('/edit/:id', (req, res) => {
     console.log(req.session.user_id);
     console.log(req.params.id);
 

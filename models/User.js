@@ -44,11 +44,6 @@ User.init(
         // this means the password must be at least four characters long
         len: [4]
       }
-    },
-    admin: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
     }
   },
   {

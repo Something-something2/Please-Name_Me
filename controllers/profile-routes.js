@@ -13,16 +13,64 @@ var upload = multer({
     dest: 'uploads/'
 })
 
-// router.get('/', (req, res) => {
-//     {
-//         res.render('profile', {
-//             loggedIn: req.session.loggedIn
-//         })
-//     }
-// });
+// GET All Pins
+router.get('/', (req, res) => {
+    Pin.findAll({
+        where: {
+            user_id: req.session.user_id,
+        },
+        attributes: [
+            'id',
+            'user_id',
+            'city',
+            'lat',
+            'lon'
+        ],
+        include: [{
+            model: Comment,
+            attributes: ['id', 'comment_text', 'user_id', 'pin_id'],
+            include: {
+                model: User,
+                model: Pin
+            }
+        },
+        {
+            model: Image,
+            attributes: ['id', 'type', 'name', 'data', 'pin_id'],
+            include: {
+                model: Pin
+            }
+
+        }
+        ]
+    })
+    .then(dbPinData => {
+        if (!dbPinData) {
+            res.status(404).json({
+                message: 'No Pin found with this id'
+            });
+            return;
+        }
+
+        // serialize the data
+        const Pins = dbPinData.map(pin => pin.get({ plain: true }));
+
+        // pass data to template
+        res.render('single-Pin', {
+            user_id: req.session.user_id,
+            Pins,
+            loggedIn: req.session.loggedIn,
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 
 // GET single Pin
-router.get('/pin/:id', (req, res) => {
+router.get('/pins/:id', (req, res) => {
     Pin.findOne({
         where: {
             id: req.params.id
@@ -30,49 +78,54 @@ router.get('/pin/:id', (req, res) => {
         attributes: [
             'id',
             'user_id',
+            'city',
             'lat',
             'lon'
         ],
         include: [{
-            model: User,
-
+            model: Comment,
+            attributes: ['id', 'comment_text', 'user_id', 'pin_id'],
+            include: {
+                model: User,
+                model: Pin
+            }
         },
         {
-            model: Comment,
-            attributes: ['comment_text']
+            model: Image,
+            attributes: ['id', 'type', 'name', 'data', 'pin_id'],
+            include: {
+                model: Pin
+            }
 
         }
         ]
     })
-        .then(dbPinData => {
-            if (!dbPinData) {
-                res.status(404).json({
-                    message: 'No Pin found with this id'
-                });
-                return;
-            }
-
-            // serialize the data
-            const Pin = dbPinData.get({
-                plain: true
+    .then(dbPinData => {
+        if (!dbPinData) {
+            res.status(404).json({
+                message: 'No Pin found with this id'
             });
+            return;
+        }
 
-            // pass data to template
-            res.render('single-Pin', {
-                user_id: req.session.user_id,
-                Pin,
-                loggedIn: req.session.loggedIn,
-                admin: req.session.admin
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        // serialize the data
+        const Pins = dbPinData.map(pin => pin.get({ plain: true }));
+
+        // pass data to template
+        res.render('single-Pin', {
+            user_id: req.session.user_id,
+            Pins,
+            loggedIn: req.session.loggedIn,
         });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 // Add-Pin
-router.get('/add-pin/:id', withAuth, (req, res) => {
+router.get('/add-pin/:id', (req, res) => {
     if (!req.session.loggedIn) {
         res.redirect('/login');
         return;
@@ -84,43 +137,61 @@ router.get('/add-pin/:id', withAuth, (req, res) => {
     });
 });
 
-// Edit-Profile
-router.get('/edit/:id', withAuth, (req, res) => {
-    User.findOne({
+// Edit-Pin
+router.put('/:id', (req, res) => {
+    Pin.update({
+      city: req.body.city,
+      lat: req.body.lat,
+      lon: req.body.lon
+    }, {
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(dbPinData => {
+        if (!dbPinData) {
+          res.status(404).json({
+            message: 'No pin found with this id'
+          });
+          return;
+        }
+        res.json(dbPinData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+  
+/*router.get('/edit-pin/:id', (req, res) => {
+    Pin.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
-            'id'        
+            'id'
         ],
         include: {
             model: User,
-        }        
+        }
     })
-        .then(dbPostData => {
-            if (!dbPostData) {
+        .then(dbPinData => {
+            if (!dbPinData) {
                 res.status(404).json({
-                    message: 'No user found with this id'
+                    message: 'No pin found with this id'
                 });
                 return;
             }
 
             // serialize the data
-            const post = dbPostData.get({
-                plain: true
-            });
-
-            // pass data to template
-            res.render('edit-user', {
-                post,
-                loggedIn: req.session.loggedIn
-            });
+            const Pins = dbPinData.map(Pin => Pin.get({ plain: true }));
+            res.render('edit-pin', { Pins, loggedIn: true });
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
-});
+});*/
 
 
 // Profile

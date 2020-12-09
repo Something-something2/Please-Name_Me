@@ -1,16 +1,15 @@
-
 <form class="container mt-5 new-pin-form">
 
-    <form>
+    <div class="pin-div">
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control" id="city" placeholder="City">
+                <input name="city" type="text" class="form-control" id="city" placeholder="City">
             </div>
             <div class="col">
-                <input type="text" class="form-control" id="lat" placeholder="Latitude">
+                <input name="lat" type="text" class="form-control" id="lat" placeholder="Latitude">
             </div>
             <div class="col">
-                <input type="text" class="form-control" id="lon" placeholder="Longitude">
+                <input name="lon" type="text" class="form-control" id="lon" placeholder="Longitude">
             </div>
         </div>
     </div>
@@ -23,7 +22,7 @@
             <textarea class="form-control" id="inputComments" rows="5" name="comment-body"></textarea>
         </div>
     </div>
- 
+
 
 
     <div class="image-div">
@@ -44,7 +43,11 @@
         {{!-- <label for="file">Upload Progress:</label>
       <progress id="file" max=”100” value=”0”></progress><br><br> --}}
     </div>
+
+    <div class="col-sm-12 text-right mt-3">
+        <button type="submit" id="new-pin-btn" class="btn btn-primary">Add Pin</button>
     </div>
+
 </form>
 
 <script src="/javascript/add-pin.js"></script>
