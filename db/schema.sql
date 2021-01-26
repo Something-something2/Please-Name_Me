@@ -1,4 +1,6 @@
-DROP DATABASE IF EXISTS please_name_me_db;
+DROP DATABASE IF EXISTS tourney_tracker;
 
-CREATE DATABASE please_name_me_db;
+
+CREATE DATABASE tourney_tracker;
+
 

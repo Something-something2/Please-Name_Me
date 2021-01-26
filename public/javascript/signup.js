@@ -1,49 +1,31 @@
 async function signupFormHandler(event) {
-
     event.preventDefault();
-
-    // console.log("button clicked!");
-
+    // getting data from the form
+    const username = document.querySelector("#username-signup").value.trim();
     const email = document.querySelector('#email-signup').value.trim();
-    const password = document.querySelector('#password-signup').value.trim();
-    const privacyPolicy = document.querySelector('#gridCheck').checked;
+    const password = document.querySelector("#password-signup").value.trim();
 
-    if (!privacyPolicy) {
-        alert("Please select that you've read and agree to our privacy policy!");
-        return;
-    };
+  // Confirm login credentials with database
+  console.log(username, email, password)
+    if (username && password) {
+      const response = await fetch("api/users", {
+        method: "post",
+        body: JSON.stringify({
+          username,
+          email,
+          password
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      // check the response status, redirect to dashboard after
 
-    if (password.length < 4) {
-        alert("Password must be longer than 4 characters.  Please try again.");
-        return;
-    };
-
-    if (!email || !password) {
-        alert("Please make sure all of the fields are filled in!");
-        return;
-    };
-
-    if (email && password) {
-        const response = await fetch('api/users', {
-            method: 'post',
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-
-        // check the response status
-        if (response.ok) {
-            document.location.replace('/profile/');
-        } else {
-            alert(response.statusText);
-        }
+      if (response.ok) {
+        console.log("success");
+        document.location.replace("/dashboard");
+      } else {
+        alert(response.statusText);
+      }
     }
-};
-
-document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
-
-
-
-
+  }
+  
+  document.querySelector(".signup-form").addEventListener("submit", signupFormHandler);
