@@ -1,0 +1,28 @@
+<h1 class="center-text">My Player Card</h1>
+{{#each user as |user| }}
+
+<div id="users-container" class="list-group">  
+  <div class="card">
+    <h3 class="card-header text-uppercase">{{first_name}} {{last_name}}</h3>
+    <div class="card-body" id="department-buttons">
+      <img src="{{avatar}}" alt="users avatar" width="190" height="175"><br>
+      <div>
+        <i class="far fa-id-badge"></i>
+        {{group.id}}
+      </div>
+      <div>
+        <i class="fas fa-phone"></i>
+        <a href="tel:{{phone}}">{{phone}}</a>
+      </div>
+      <div>
+        <i class="fas fa-envelope-open-text"></i>
+        <a href="{{email}}">{{email}}</a>
+      </div>
+      <div>
+        <i class="fas fa-building"></i>
+        {{group.hole.number}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

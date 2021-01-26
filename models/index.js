@@ -1,30 +1,29 @@
-const User = require("./User")
-const Pin = require("./Pin")
-const Comment = require('./Comment')
-const Image = require('./Image')
+const Group = require("./Group");
+const Hole = require("./Hole");
+const User = require("./User");
 
-User.hasMany(Pin, {
-    foreignKey: "user_id"
+
+Hole.hasMany(Group, {
+    foreignKey: 'role_id'
 });
 
-Pin.belongsTo(User, {
-    foreignKey: "user_id",
+Group.belongsTo(Hole, {
+    foreignKey: "role_id"
 });
 
-Pin.hasOne(Comment, {
-    foreignKey: "pin_id"
+Group.hasMany(User, {
+    foreignKey: "hole_id"
 });
 
-Comment.belongsTo(Pin, {
-    foreignKey: 'pin_id'
+User.belongsTo(Group, {
+    foreignKey: "hole_id"
 });
 
-Pin.hasMany(Comment, {
-    foreignKey: "pin_id"
-});
 
-Image.belongsTo(Pin, {
-    foreignKey: 'pin_id'
-});
 
-module.exports = { User, Pin, Comment, Image }
+module.exports = {
+    Group,
+    Hole,
+    User
+};
+

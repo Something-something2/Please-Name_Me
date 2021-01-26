@@ -1,0 +1,71 @@
+<html>
+
+<body>
+  {{#if loggedIn}}
+<div class="avatar-div">
+<div>
+      <h1 class="center-text">Edit your account</h1>
+    
+      <hr>
+    
+      <h2 class="center-text">Your avatar</h2>
+      <img style="border:5px solid #38302e;;width:300px;" id="preview" default="/images/default.png" width=200 src="{{user.avatar}}" />
+      <div class="center-text">
+        <form id="fileUpload" action="/api/users/avatar" method="post">
+          <input type="file" name="avatar" id="fileSelector">
+          {{!-- <input type="submit" /> --}}
+        </form>
+      </div>
+      </div>
+      {{!-- <label for="file">Upload Progress:</label>
+      <progress id="file" max=”100” value=”0”></progress><br><br> --}}
+</div>
+</div>
+
+
+  {{!-- <form action="/profile" method="post" enctype="multipart/form-data">
+      <label>First name</label><input id="file-input" type="file" name="avatar" />
+    </form> --}}
+
+  {{!-- <p id="status">Please select a file</p>
+  <img style="border:1px solid gray;width:300px;" id="preview" src="/images/default.png"> --}}
+
+
+  <form id="edit-user-form" class="edit-user-form">
+<div>
+  
+      {{!-- <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png" /> --}}
+      <label for="first-name">First name:</label><br><input id="first-name" type="text" name="first-name" value="{{user.first_name}}" /><br>
+      <label for"last-name">Last name:</label><br><input id="last-name" type="text" name="last-name"  value="{{user.last_name}}" /><br>
+      <label for="phone" >Phone:</label><br><input id="phone" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: 999-999-9999"
+        value="{{user.phone}}" /><br>
+      <label for="email" >Email:</label><br><input id="email" type="email" name="email" value={{user.email}} /><br>
+      {{!-- <label>First name</label><input id="password" type="text" name="password" placeholder="password"><br> --}}
+      {{!-- <label for="group">Please Select your Group:</label><br> --}}
+      <label for="group" >Group:</label><br>
+      <select name="group-id" id="group" form="edit-user-form">
+        {{#each groups}}
+        <option value="{{this.id}}">{{this.tee_time}}</option>
+        {{/each}}
+      </select>
+      <br><br>
+  
+      <button class="btn" id="update-btn" type="submit">Update Profile</button>
+</div>
+  </form>
+  {{else}}
+  <h1 href="/login">Unable to edit information, You are not logged in</h1>
+  {{/if}}
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <script src="/javascript/edit-user.js"></script>
+  <script src="/javascript/avatar-upload.js"></script>
+
+</body>
+
+</html>
+{{!-- 
+departments as |department| }}
+            {{> user-info-button user}}
+            <a class="btn" href="/dashboard/{{name}}" department="{{name}}" id="{{id}}">{{name}}</a> --}}
