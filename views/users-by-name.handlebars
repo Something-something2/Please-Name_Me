@@ -1,0 +1,19 @@
+<h1 class="center-text">Search Results:</h1>
+{{#each users as |user| }}
+<div id="users-container" class="list-group">  
+  <div class="card">
+  <h3 class="card-header text-uppercase">{{first_name}} {{last_name}}</h3>
+  <div class="card-body" id="department-buttons">
+    <img src="{{avatar}}" alt="users avatar" width="190" height="175"><br>
+    <div>Players in group: {{group.number}}</div>
+    <div>Phone: 
+      <a href="tel:{{phone}}">{{phone}}</a>
+      </div>
+    <div>Email:
+      <a href="{{email}}">{{email}}</a>
+      </div>
+    <div>Set to play hole: {{group.hole.number}}</div>
+  </div>
+</div>
+</div>
+{{/each}}

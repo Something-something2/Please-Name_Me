@@ -1,27 +1,15 @@
 <form class="signup-form">
-  <div class="container my-5 text-center">
-      <div class="form-row">
-        <div class="form-group col-md-6 text-center">
-          <label class="text-primary" for="email-signup">Email</label>
-          <input type="email" class="form-control" id="email-signup" placeholder="Email">
-        </div>
-        <div class="form-group col-md-6">
-          <label class="text-primary" for="password-signup">Password</label>
-          <input type="password" class="form-control" id="password-signup" placeholder="Password">
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Agree to <a class="text-danger" href="https://www.youtube.com/watch?v=oHg5SJYRHA0">terms and conditions</a>
-          </label>
-        </div>
-      </div>
-      <button type='submit' id="signup-btn" class="btn btn-primary">Sign up</button>
+  <div>
+    <label for="username-signup">username:</label>
+    <input type="text" id="username-signup" /><br>
+    <label for="email-signup">email:</label>
+    <input type="text" id="email-signup" /><br>
+    <label for="password-signup">password:</label>
+    <input type="password" id="password-signup" /><br>
+      <button type="submit" id="signup-btn" class="btn">Sign Up</button>
   </div>
-  
 </form>
 
+
+{{!-- js file --}}
 <script src="/javascript/signup.js"></script>
