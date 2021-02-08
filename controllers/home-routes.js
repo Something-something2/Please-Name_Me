@@ -1,79 +1,25 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection')
-const { Pin, User, } = require('../models')
+
 
 router.get('/', (req, res) => {
-    console.log(req.session);
-    Pin.findAll({
-        attributes: [
-            'id'
-        ],
-        include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
-        ]
-    })
-        .then(dbPinData => {
-            const pins = dbPinData.map(pin => pin.get({ plain: true }));
-            // pass a single pin object into the homepage template
-            res.render('homepage', {
-                pins,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
+  console.log("SESSION", req.session);
+      res.render('homepage', {
+          loggedIn: req.session.loggedIn
+      });
+  });
 
-router.get('/login', (req, res) => {
+
+  router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }
-
-    res.render('login', {
-        noNav: true
-    });
+    res.render('login');
 });
 
-router.get('/pin/:id', (req, res) => {
-    Pin.findOne({
-        where: {
-            id: req.params.id
-        },
-        attributes: [
-            'id'           
-        ],
-        include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
-        ]
-    })
-        .then(dbPinData => {
-            if (!dbPinData) {
-                res.status(404).json({ message: 'No pin found with this id' });
-                return;
-            }
 
-            // serialize the data
-            const pin = dbPinData.get({ plain: true });
+  router.get('/signup', (req, res) => {
+    res.render('signup');
+  });
 
-            // pass data to template
-            res.render('single-pin', {
-                pin,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-
-module.exports = router; 
+module.exports = router;

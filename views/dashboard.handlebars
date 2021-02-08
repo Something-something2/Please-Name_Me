@@ -1,0 +1,55 @@
+<section>
+  <div class="flex-row justify-space-between">
+      <div class="col-12 col-md-4">
+        <div class="card">
+           <h1></h1>
+          <h3 class="card-header text-uppercase">Search By Name</h3>
+          <form method="GET" action="/dashboard/users-by-name" enctype="multipart/form-data" id="user-form" class="card-body">
+            <label class="form-label" for="first-name">First Name</label>
+            <input name="first-name" id="first-name" type="text" autofocus="true" class="form-input" />
+            <input type="submit" class="btn" id="get-user" value="Get User">
+          </form>
+        </div>
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search All Players</h3>
+          <div class="card-body" id="all-users">
+            {{!-- href="/dashboard/all-users" --}}
+            <a class="btn" href="#myframe" id="all-users">Search All Players</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search Players By Hole</h3>
+          <div class="card-body" id="hole-buttons">
+            {{#each hole as |hole| }}
+            {{!-- {{> user-info-button user}} --}}
+                {{!-- href="/dashboard/{{name}}" --}}
+            <a class="btn" href="#myframe" hole="{{number}}" id="{{number}}">{{number}}</a>
+            {{/each}}
+
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-header text-uppercase">Update Your Information</h3>
+          <div class="card-body" id="update-button">
+            <p>If this is your first time visiting, please make sure to enter the rest of your information so your coworkers can find you!</p>
+            {{!-- href="/dashboard/edit/{{id}}" --}}
+            <a class="btn" id="update-btn" href="/dashboard/edit/{{id}}">Update Info</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-8 myframe">
+        {{!-- height: 100vh in iframe element for media style screen size med and down --}}
+        <iframe id="myframe" src="dashboard/my-user-card" width="100%" frameborder=""></iframe>
+        {{#each user as |user| }}
+        
+        
+        {{> user-info hole}}
+        
+        {{/each}}
+      </div>
+  </div>
+</section>
+
+<script src="/javascript/dashboard.js"></script>

@@ -1,0 +1,45 @@
+{{!-- <div class="comments">
+  {{#each post.comments}}
+  <section class="comment">
+    <div class="meta">
+      {{user.username}} on {{created_at}}
+    </div>
+    <div class="text">
+      {{comment_text}}
+    </div>
+  </section>
+  {{/each}}
+</div> --}}
+
+{{!-- Once again, it won't work yet, because the partial is trying to reference post.comments. Well, in this case we have to do something different, because the comments array can't be destructured into an easily accessed variable name.
+
+In Handlebars.js, we can use the trusty keyword this to refer to the parent object or array that's available in the context of the partial. Data that's passed to a template file is technically always part of this, but when dealing with objects, we can simply access the object properties directly (e.g., vote_count instead of this.vote_count). Because arrays don't have named properties like objects do, we're forced to access the array as this.
+
+Let's go ahead and update the comments partial to use this, as shown in the following code: --}}
+{{!-- <div class="comments">
+  {{#each this}}
+  <section class="comment">
+    <div class="meta">
+      {{user.username}} on {{created_at}}
+    </div>
+    <div class="text">
+      {{comment_text}}
+    </div>
+  </section>
+  {{/each}}
+</div> --}}
+{{!-- Yes, that's right—only one expression had to change. Because this is being looped over, all of the expressions within the loop look for properties on each object in this. In this case, that means each comment. --}}
+
+{{!-- Now all we have to do to use these helpers in the templates is add them to the Handlebars.js expressions. In comments.handlebars, replace created_at with format_dates created_at. The following code block shows what that should look like: --}}
+<div class="comments">
+  {{#each this}}
+  <section class="comment">
+    <div class="meta">
+      {{user.username}} on {{format_date created_at}}
+    </div>
+    <div class="text">
+      {{comment_text}}
+    </div>
+  </section>
+  {{/each}}
+</div>
